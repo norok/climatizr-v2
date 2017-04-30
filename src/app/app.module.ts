@@ -9,6 +9,7 @@ import { BackgroundComponent } from './background/background.component';
 @NgModule({
   declarations: [
     AppComponent,
+    BackgroundComponent
   ],
   imports: [
     BrowserModule,
