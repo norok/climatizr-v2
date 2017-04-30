@@ -1,0 +1,16 @@
+<header class="navbar">
+  <div class="container">
+    <div class="navbar-header">
+      <h1 class="hidden-xs-up">{{ title }}</h1>
+      <div class="navbar-brand">{{ title }}</div>
+    </div>
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
+    <nav class="navbar-collapse collapse" id="navbar-collapse" role="navigation">
+      <ul class="navbar-nav nav menu navbar-right">
+        <li><a href="#" ng-click="viewFavorite()">Minha Cidade Favorita</a></li>
+        <li><a href="#" ng-click="setCityState('Blumenau','SC')">Blumenau, SC</a></li>
+        <li><a href="#" ng-click="setCityState('Campinas','SP')">Campinas, SP</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
