@@ -15,10 +15,10 @@ export class BackgroundComponent implements OnInit {
 
   private getDayTimeClass(hour:number):string {
     if (hour < 18 && hour > 5) {
-      return 'night';
+      return 'day';
     }
     else {
-      return 'day';
+      return 'night';
     }
   }
   
