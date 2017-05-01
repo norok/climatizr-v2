@@ -1,8 +1,8 @@
-import { City } from './city';
 import { Injectable } from '@angular/core';
 
 import { Http } from '@angular/http';
-import { State } from './state';
+import { State } from '../classes/state';
+import { City } from '../classes/city';
 
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class CitiesStatesService {
 
-  private statesUrl = '../assets/estados-cidades.json';
+  private statesUrl = '../../assets/estados-cidades.json';
   private ready = false;
 
   constructor(private http: Http) {}

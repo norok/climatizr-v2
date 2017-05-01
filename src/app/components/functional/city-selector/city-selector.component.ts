@@ -1,7 +1,7 @@
 import { NgForm } from '@angular/forms/src/directives';
-import { State } from '../state';
+import { State } from '../../../classes/state';
 import { Observable, Subject } from 'rxjs/Rx';
-import { CitiesStatesService } from '../cities-states.service';
+import { CitiesStatesService } from '../../../services/cities-states.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
