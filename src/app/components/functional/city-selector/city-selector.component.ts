@@ -22,8 +22,12 @@ export class CitySelectorComponent implements OnInit {
 
   private states:State[];
   private currentState: State;
+  private currentCity:string = '';
   private ready:Boolean = false;
-  private formCity:string = '';
+  private defaults:any = {
+    state: 'SP',
+    city: 'Campinas'
+  }
 
   constructor(
     private citiesStatesService: CitiesStatesService,
@@ -40,8 +44,15 @@ export class CitySelectorComponent implements OnInit {
         .getLocations()
         .then(states => {
           this.states = states;
-          this.currentState = this.states[0];
+
+          var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( this.defaults.state ), "i" );
+          this.currentState = this.states.filter((value:any) => {
+            return matcher.test( value.getAbbr() );
+          })[0];
+
           this.updateAutocomplete();
+          this.currentCity = this.defaults.city;
+          this.updateLocation(this.currentState, this.currentCity);
           this.ready = true;
         });
   }
@@ -67,11 +78,11 @@ export class CitySelectorComponent implements OnInit {
       },
       minLenght: 0,
       focus: function(event, ui) {
-        that.formCity = ui.item.getName();
+        that.currentCity = ui.item.getName();
         return false;
       },
       select: function(event, ui) {
-        that.formCity = ui.item.getName();
+        that.currentCity = ui.item.getName();
         return false;
       },
     })
@@ -86,12 +97,16 @@ export class CitySelectorComponent implements OnInit {
     event.preventDefault();
 
     if (f.valid) {
-      this.locationService
-        .getPreciseLocation(f.controls['form-state'].value, f.controls['form-city'].value)
+      this.updateLocation(this.currentState, this.currentCity);
+    }
+  }
+
+  private updateLocation(state, city) {
+    this.locationService
+        .getPreciseLocation(state, city)
         .subscribe(location => {
           this.weatherService.getWeatherInformation(location);
         });
-    }
   }
 
 }

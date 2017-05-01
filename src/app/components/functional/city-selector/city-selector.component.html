@@ -12,7 +12,7 @@
       </div>
       <div class="form-group text-left">
         <label class="sr-only" for="form-city">Cidade</label>
-        <input class="form-control" type="text" id="form-city" name="form-city" placeholder="Digite o nome da cidade" [(ngModel)]="formCity" required [disabled]="!ready"/>
+        <input class="form-control" type="text" id="form-city" name="form-city" placeholder="Digite o nome da cidade" [(ngModel)]="currentCity" required [disabled]="!ready"/>
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Ver clima da cidade atual" [disabled]="!ready">Ver Clima</button>
