@@ -1,0 +1,22 @@
+<section class="current-weather">
+  <h2 class="sr-only">Tempo Atual</h2>
+  <div class="date">
+    {{ currentWeather.time * 1000 | date:'EEE, dd/MM'  }}
+  </div>
+  <canvas id="icon-current" width="150" height="150"></canvas>
+  <div class="data">
+    <div class="temp">
+      {{ currentWeather.temperature | number:'1.0-0' }}°C
+      <div class="min-max">
+        <div class="max"><i class="fa fa-caret-up"></i> {{ todayForecast.temperatureMax | number:'1.0-0' }}°C</div>
+        <div class="min"><i class="fa fa-caret-down"></i> {{ todayForecast.temperatureMin | number:'1.0-0' }}°C</div>
+      </div>
+    </div>
+    <div class="summary">
+      <strong>Sensação Térmica:</strong> {{ currentWeather.apparentTemperature | number:'1.0-0' }}°C<strong> - {{ currentWeather.summary }}</strong>
+    </div>
+    <div class="rain">
+      <strong>Chuva:</strong> {{ 100 * currentWeather.precipProbability | number:'1.0-0' }}% - {{ currentWeather.precipIntensity }}mm/h
+    </div>
+  </div>
+</section>
