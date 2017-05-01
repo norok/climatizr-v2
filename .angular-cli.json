@@ -20,10 +20,14 @@
       "prefix": "cl2",
       "styles": [
         "styles.scss",
-        "../node_modules/font-awesome/css/font-awesome.min.css"
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "./assets/jquery-ui/jquery-ui.min.css",
+        "./assets/jquery-ui/jquery-ui.structure.min.css",
+        "./assets/jquery-ui/jquery-ui.theme.min.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
+        "./assets/jquery-ui/jquery-ui.min.js",
         "../node_modules/tether/dist/js/tether.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js"
       ],

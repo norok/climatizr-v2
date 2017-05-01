@@ -1,6 +1,5 @@
 import { NgForm } from '@angular/forms/src/directives';
 import { State } from '../../../classes/state';
-import { Observable, Subject } from 'rxjs/Rx';
 import { CitiesStatesService } from '../../../services/cities-states.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -15,10 +14,15 @@ export class CitySelectorComponent implements OnInit {
   private states:State[];
   private currentState: State;
   private ready:Boolean = false;
+  private autocomplete:any;
 
   constructor(
     private citiesStatesService: CitiesStatesService
   ) {}
+
+  ngOnInit():void {
+    this.getStates();
+  }
 
   private getStates():void {
     this.citiesStatesService
@@ -27,10 +31,6 @@ export class CitySelectorComponent implements OnInit {
           this.states = states;
           this.ready = true;
         });
-  }
-
-  ngOnInit():void {
-    this.getStates();
   }
 
   private stateChange(state:State):void {
