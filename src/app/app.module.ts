@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { BackgroundComponent } from './background/background.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { CitySelectorComponent } from './city-selector/city-selector.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BackgroundComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CitySelectorComponent
   ],
   imports: [
     BrowserModule,
