@@ -1,46 +1,57 @@
-import { GeoLocation } from '../classes/geo-location';
-import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { Injectable } from '@angular/core';
+import { Http, URLSearchParams, RequestOptions, Response } from '@angular/http';
 
+import { GeoLocation } from '../classes/geo-location';
 import { City } from '../classes/city';
 import { State } from '../classes/state';
-import { Injectable } from '@angular/core';
 
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+
+const BASE_URL:string = '//maps.google.com/maps/api/geocode/json';
 
 @Injectable()
 export class LocationService {
 
-  private baseUrl:string = '//maps.google.com/maps/api/geocode/json';
+  private currentLocation:GeoLocation = null;
 
   constructor(private http:Http) { }
 
-  public getPreciseLocation(state:State, city:City):Promise<GeoLocation> {
-    let that = this;
-    let params:URLSearchParams = new URLSearchParams();
-    params.set('address', state.getAbbr() + ',' + city.getName());
-    params.set('sensor', 'false');
+  /**
+   * Returns a GeoLocation object with the latitude and longitude of the given location
+   *
+   * @param state State
+   * @param city String
+   */
+  public getPreciseLocation(state:State, city:string):Observable<GeoLocation> {
+    let params = new URLSearchParams();
+    let options = new RequestOptions();
 
-    return this.http.get(this.baseUrl, {'params': params})
-                    .toPromise()
-                    .then(response => that.transformData(response))
-                    .catch(this.handleError);
+    params.set('address', state.getAbbr() + ',' + city);
+    params.set('sensor', 'false');
+    options.search = params;
+
+    return this.http
+            .get(BASE_URL, options)
+            .map((resp: Response) => this.transformData(resp.json()));
   }
 
   /**
    * Transform the response data from the json into a State Array
-   * 
-   * @param data 
+   *
+   * @param data
    */
   private transformData(data):GeoLocation {
-    let output = new GeoLocation(data.geometry.location.lat, data.geometry.location.lng);
+    let geomLocation = data.results[0].geometry.location;
+    let output = new GeoLocation(geomLocation.lat, geomLocation.lng);
 
     return output;
   }
 
   /**
    * Handles the promise errors
-   * 
-   * @param error 
+   *
+   * @param error
    */
   private handleError(error: any):Promise<any> {
     console.error('Ocorreu um erro ao carregar os estados', error);

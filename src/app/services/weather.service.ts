@@ -21,7 +21,7 @@ export class WeatherService {
     params.set('lang',     'pt');
     params.set('callback', 'JSONP_CALLBACK');
     options.search = params;
-    
+
     let url = BASE_URL + KEY + '/' + location.getLatitude() + ',' + location.getLongitude();
 
     return this.jsonp

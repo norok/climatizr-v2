@@ -30,8 +30,8 @@ export class CitiesStatesService {
 
   /**
    * Transform the response data from the json into a State Array
-   * 
-   * @param data 
+   *
+   * @param data
    */
   private transformData(data):State[] {
     let states:State[] = [];
@@ -54,8 +54,8 @@ export class CitiesStatesService {
 
   /**
    * Handles the promise errors
-   * 
-   * @param error 
+   *
+   * @param error
    */
   private handleError(error: any):Promise<any> {
     console.error('Ocorreu um erro ao carregar os estados', error);

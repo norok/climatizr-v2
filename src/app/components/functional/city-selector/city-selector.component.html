@@ -1,7 +1,7 @@
 <section class="card text-center" id="city-selector">
   <div class="card-block">
     <h4 class="card-title">Selecione seu Estado e Cidade</h4>
-    <form class="form-inline" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <form class="form-inline" #f="ngForm" (ngSubmit)="onSubmit(f, $event)">
       <div class="form-group text-left">
         <label class="sr-only" for="form-state">Estado</label>
         <select class="form-control" name="form-state" id="form-state" [(ngModel)]="currentState" required (ngModelChange)="stateChange($event)" [disabled]="!ready">

@@ -1,8 +1,13 @@
-import { City } from '../../../classes/city';
+import { CurrentWeatherComponent } from '../../structural/current-weather/current-weather.component';
+import { EventEmitter } from 'events';
+import { GeoLocation } from '../../../classes/geo-location';
 import { NgForm } from '@angular/forms/src/directives';
+import { Component, OnInit, Input, Output } from '@angular/core';
+
+import { City } from '../../../classes/city';
 import { State } from '../../../classes/state';
 import { CitiesStatesService } from '../../../services/cities-states.service';
-import { Component, OnInit } from '@angular/core';
+import { LocationService } from '../../../services/location.service';
 
 declare var $:any;
 
@@ -10,9 +15,11 @@ declare var $:any;
   selector: 'cl2-city-selector',
   templateUrl: './city-selector.component.html',
   styleUrls: ['./city-selector.component.scss'],
-  providers: [CitiesStatesService],
+  providers: [CitiesStatesService, LocationService],
 })
 export class CitySelectorComponent implements OnInit {
+  @Input()
+    compCurrentWeather:CurrentWeatherComponent;
 
   private states:State[];
   private currentState: State;
@@ -20,7 +27,8 @@ export class CitySelectorComponent implements OnInit {
   private formCity:string = '';
 
   constructor(
-    private citiesStatesService: CitiesStatesService
+    private citiesStatesService: CitiesStatesService,
+    private locationService: LocationService
   ) {}
 
   ngOnInit():void {
@@ -74,12 +82,16 @@ export class CitySelectorComponent implements OnInit {
     };
   }
 
-  private onSubmit(f: NgForm):void {
-    console.log(f.controls['form-city'].value);
-    console.log(f.controls['form-state'].value.getAbbr());
+  private onSubmit(f: NgForm, event:Event):void {
+    event.preventDefault();
 
-    console.log(this.currentState.getName());
-    console.log(this.formCity);
+    if (f.valid) {
+      this.locationService
+        .getPreciseLocation(f.controls['form-state'].value, f.controls['form-city'].value)
+        .subscribe(location => {
+          this.compCurrentWeather.setWeatherByLocation(location);
+        });
+    }
   }
 
 }
