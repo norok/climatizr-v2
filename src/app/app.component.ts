@@ -1,4 +1,3 @@
-import { BackgroundComponent } from './background/background.component';
 import { Component } from '@angular/core';
 
 @Component({
