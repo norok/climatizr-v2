@@ -14,6 +14,7 @@ export class CitySelectorComponent implements OnInit {
 
   private states:State[];
   private currentState: State;
+  private ready:Boolean = false;
 
   constructor(
     private citiesStatesService: CitiesStatesService
@@ -22,7 +23,10 @@ export class CitySelectorComponent implements OnInit {
   private getStates():void {
     this.citiesStatesService
         .getLocations()
-        .then(states => this.states = states);
+        .then(states => {
+          this.states = states;
+          this.ready = true;
+        });
   }
 
   ngOnInit():void {
@@ -33,7 +37,7 @@ export class CitySelectorComponent implements OnInit {
     this.currentState = state;
   }
 
-  onSubmit(f: NgForm):void {
+  private onSubmit(f: NgForm):void {
     console.log(f.controls['form-city']);
     console.log(f.controls['form-state'].value.getAbbr());
   }
