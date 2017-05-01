@@ -1,0 +1,33 @@
+@import '../../shared/shared';
+
+form {
+  justify-content: center;
+  min-width: 250px;
+
+  .form-group,
+  .favorite-button {
+    vertical-align: top;
+  }
+  .form-group {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .favorite-button {
+    background: transparent none;
+    border: none;
+    color: $brand-warning;
+    cursor: pointer;
+    font-size: 28px;
+    height: 34px;
+    line-height: 1;
+    outline: none;
+  }
+}
+
+.card {
+  background-color: rgba(#FFF, 0.1);
+  .card-title {
+    color: #FFF;
+  }
+}

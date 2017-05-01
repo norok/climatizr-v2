@@ -1,0 +1,23 @@
+<section class="card text-center" id="city-selector">
+  <div class="card-block">
+    <h4 class="card-title">Selecione seu Estado e Cidade</h4>
+    <form class="form-inline" #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <div class="form-group text-left">
+        <label class="sr-only" for="form-state">Estado</label>
+        <select class="form-control" name="form-state" id="form-state" ngModel (ngModelChange)="stateChange($event)">
+          <option *ngFor="let state of states" [ngValue]="state">
+            {{ state.abbr }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group text-left">
+        <label class="sr-only" for="form-city">Cidade</label>
+        <input class="form-control" type="text" id="form-city" name="form-city" placeholder="Digite o nome da cidade" ngModel required />
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Ver clima da cidade atual">Ver Clima</button>
+        <button type="button" class="favorite-button" data-toggle="tooltip" data-placement="bottom" title="Esta é sua cidade favorita" data-original-title=""><i class="fa fa-star"></i></button>
+      </div>
+    </form>
+  </div>
+</section>
