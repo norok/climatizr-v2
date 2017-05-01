@@ -1,3 +1,4 @@
+import { WeatherService } from '../../../services/weather.service';
 import { CurrentWeatherComponent } from '../../structural/current-weather/current-weather.component';
 import { EventEmitter } from 'events';
 import { GeoLocation } from '../../../classes/geo-location';
@@ -18,8 +19,6 @@ declare var $:any;
   providers: [CitiesStatesService, LocationService],
 })
 export class CitySelectorComponent implements OnInit {
-  @Input()
-    compCurrentWeather:CurrentWeatherComponent;
 
   private states:State[];
   private currentState: State;
@@ -28,7 +27,8 @@ export class CitySelectorComponent implements OnInit {
 
   constructor(
     private citiesStatesService: CitiesStatesService,
-    private locationService: LocationService
+    private locationService: LocationService,
+    private weatherService:WeatherService
   ) {}
 
   ngOnInit():void {
@@ -89,7 +89,7 @@ export class CitySelectorComponent implements OnInit {
       this.locationService
         .getPreciseLocation(f.controls['form-state'].value, f.controls['form-city'].value)
         .subscribe(location => {
-          this.compCurrentWeather.setWeatherByLocation(location);
+          this.weatherService.getWeatherInformation(location);
         });
     }
   }

@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs/Rx';
 import { GeoLocation } from '../classes/geo-location';
 import { Http, URLSearchParams, RequestOptions, Response, Jsonp } from '@angular/http';
 import { Injectable } from '@angular/core';
@@ -11,9 +11,20 @@ const KEY = 'd2deeb708d6b5a2f85682a02f40a8d9d';
 @Injectable()
 export class WeatherService {
 
-  constructor(private jsonp:Jsonp, private http:Http) {}
+  private weatherData:Subject<any> = new Subject<any>();
 
-  public getWeatherInformation(location:GeoLocation):Observable<any> {
+  constructor(private jsonp:Jsonp) {}
+
+  public weatherInformation$ = this.weatherData.asObservable();
+
+  public getWeatherInformation(location:GeoLocation):void {
+    this.getInfo(location)
+        .subscribe(data => {
+          this.weatherData.next(data);
+        });
+  }
+
+  private getInfo(location:GeoLocation):Observable<any> {
     let params = new URLSearchParams();
     let options = new RequestOptions();
 
@@ -25,8 +36,8 @@ export class WeatherService {
     let url = BASE_URL + KEY + '/' + location.getLatitude() + ',' + location.getLongitude();
 
     return this.jsonp
-            .get(url, options)
-            .map((resp: Response) => resp.json());
+               .get(url, options)
+               .map( resp => resp.json() );
   }
 
 }

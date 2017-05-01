@@ -1,22 +1,33 @@
+import { Subscription } from 'rxjs/Rx';
 import { WeatherService } from '../../../services/weather.service';
 import { GeoLocation } from '../../../classes/geo-location';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 declare var Skycons:any;
 
 @Component({
   selector: 'cl2-current-weather',
   templateUrl: './current-weather.component.html',
-  styleUrls: ['./current-weather.component.scss'],
-  providers: [WeatherService]
+  styleUrls: ['./current-weather.component.scss']
 })
 export class CurrentWeatherComponent implements OnInit {
 
   private skycons:any;
-  private currentWeather:any = {};
+  private weatherData:any = {};
+  private currentWeather:any = this.weatherData;
   private todayForecast:any = {};
+  private subscription:Subscription;
 
-  constructor(private weatherService:WeatherService) { }
+  constructor(private weatherService:WeatherService) {
+    weatherService.weatherInformation$.subscribe(
+      (data) => {
+        this.currentWeather = data.currently;
+        this.todayForecast = data.daily.data[0];
+
+        this.setIcon('icon-current', this.currentWeather.icon);
+      }
+    );
+  }
 
   ngOnInit() {
     this.skycons = new Skycons({"color": "#FFF"});
@@ -56,19 +67,6 @@ export class CurrentWeatherComponent implements OnInit {
         break;
     }
     this.skycons.play();
-  }
-
-  public setWeatherByLocation(location:GeoLocation):void {
-    this.weatherService
-      .getWeatherInformation(location)
-      .subscribe(data => {
-        this.currentWeather = data.currently;
-        this.todayForecast = data.daily.data[0];
-        console.log(data);
-        
-        this.setIcon('icon-current', this.currentWeather.icon);
-      });
-
   }
 
 }
