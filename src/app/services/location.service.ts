@@ -1,3 +1,4 @@
+import { GeoLocation } from '../classes/geo-location';
 import { Http } from '@angular/http';
 
 import { City } from '../classes/city';
@@ -13,7 +14,7 @@ export class LocationService {
 
   constructor(private http:Http) { }
 
-  public getPreciseLocation(state:State, city:City):Promise<any> {
+  public getPreciseLocation(state:State, city:City):Promise<GeoLocation> {
     let that = this;
     let params:URLSearchParams = new URLSearchParams();
     params.set('address', state.getAbbr() + ',' + city.getName());
@@ -30,8 +31,10 @@ export class LocationService {
    * 
    * @param data 
    */
-  private transformData(data):any {
-    return '';
+  private transformData(data):GeoLocation {
+    let output = new GeoLocation(data.geometry.location.lat, data.geometry.location.lng);
+
+    return output;
   }
 
   /**
