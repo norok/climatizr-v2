@@ -29,7 +29,8 @@
         "../node_modules/jquery/dist/jquery.min.js",
         "./assets/jquery-ui/jquery-ui.min.js",
         "../node_modules/tether/dist/js/tether.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js"
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "./assets/skycons.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
