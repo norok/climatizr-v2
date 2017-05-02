@@ -2,12 +2,16 @@
 
 .navbar {
   background-color: rgba(#000, 0.3);
-  border: none;
   border-radius: 0;
+  border: none;
   z-index: 100;
+  margin-bottom: 20px;
 
   > .container {
     position: relative;
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+    }
   }
 
   .navbar-brand {
@@ -24,7 +28,7 @@
     border: none;
     color: #FFF;
     font-size: 30px;
-    line-height: 50px;
+    line-height: 40px;
     margin: 0;
     outline: none;
     padding: 0 15px;

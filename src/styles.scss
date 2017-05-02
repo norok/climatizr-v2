@@ -3,6 +3,7 @@
 @import '../node_modules/bootstrap/scss/bootstrap';
 
 html {
+  font-size: $root-font-size;
   height: 100%;
   position: relative;
 }
@@ -19,11 +20,14 @@ app-root {
 }
 
 .card.cl2-card {
-	background-color: rgba(#FFF, 0.05);
+	background-color: rgba(#FFF, 0.1);
 	border: none;
+  margin-bottom: 20px;
 
   .card-title {
     color: #FFF;
-    font-size: inherit;
+    font-size: 14px;
+    line-height: 20px;
+    padding-top: 10px;
   }
 }
