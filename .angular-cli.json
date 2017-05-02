@@ -23,14 +23,17 @@
         "../node_modules/font-awesome/css/font-awesome.min.css",
         "./assets/jquery-ui/jquery-ui.min.css",
         "./assets/jquery-ui/jquery-ui.structure.min.css",
-        "./assets/jquery-ui/jquery-ui.theme.min.css"
+        "./assets/jquery-ui/jquery-ui.theme.min.css",
+        "./assets/owl-carousel/assets/owl.carousel.min.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "./assets/jquery-ui/jquery-ui.min.js",
         "../node_modules/tether/dist/js/tether.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
-        "./assets/skycons.js"
+        "./assets/skycons.js",
+        "./assets/owl-carousel/owl.carousel.min.js",
+        "./assets/Chart.bundle.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
