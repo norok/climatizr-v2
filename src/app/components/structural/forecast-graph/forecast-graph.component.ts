@@ -49,7 +49,6 @@ export class ForecastGraphComponent implements OnInit {
     let lows:Array<any> = [];
 
     for (let day of data.daily.data) {
-      console.log(day);
       // Build data for building the chart
       days.push(this.datePipe.transform(day.time * 1000,'EEE, dd/MM'));
       highs.push(this.decimalPipe.transform(day.temperatureMax, '1.0-0'));
