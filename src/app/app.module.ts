@@ -11,6 +11,7 @@ import { CitySelectorComponent } from './components/functional/city-selector/cit
 import { CurrentWeatherComponent } from './components/structural/current-weather/current-weather.component';
 import { ForecastInfoComponent } from './components/structural/forecast-info/forecast-info.component';
 import { ForecastInfoBlockComponent } from './components/structural/forecast-info-block/forecast-info-block.component';
+import { ForecastGraphComponent } from './components/structural/forecast-graph/forecast-graph.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ForecastInfoBlockComponent } from './components/structural/forecast-inf
     CitySelectorComponent,
     CurrentWeatherComponent,
     ForecastInfoComponent,
-    ForecastInfoBlockComponent
+    ForecastInfoBlockComponent,
+    ForecastGraphComponent
   ],
   imports: [
     BrowserModule,

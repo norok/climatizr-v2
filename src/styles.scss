@@ -15,10 +15,11 @@ body {
 
 app-root {
   padding-bottom: 40px;
+  display: block;
 }
 
 .card.cl2-card {
-	background-color: rgba(#000, 0.3);
+	background-color: rgba(#FFF, 0.05);
 	border: none;
 
   .card-title {
