@@ -1,0 +1,22 @@
+@import '../../../../shared/shared';
+
+.weekday {
+  color: #FFF;
+  text-align: center;
+  padding: 0 10px;
+  outline: none;
+  .date {
+    font-size: 18px;
+    font-family: $headings-font-family;
+    margin-bottom: 5px;
+  }
+  .min-max {
+    font-size: 16px;
+    font-family: $headings-font-family;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .summary {
+    font-weight: bold;
+  }
+}
