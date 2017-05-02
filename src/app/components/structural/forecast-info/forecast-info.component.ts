@@ -10,8 +10,7 @@ declare var $:any;
 })
 export class ForecastInfoComponent implements OnInit {
 
-  private forecast:Array<any> = [];
-  private todos:Array<string> = [];
+  public forecast:Array<any> = [];
   private forecastCarousel:any;
 
   constructor(private weatherService:WeatherService) {

@@ -20,10 +20,11 @@ declare var $:any;
 })
 export class CitySelectorComponent implements OnInit {
 
-  private states:State[];
-  private currentState: State;
-  private currentCity:string = '';
-  private ready:Boolean = false;
+  public currentState: State;
+  public currentCity:string = '';
+  public ready:Boolean = false;
+  public states:State[];
+
   private defaults:any = {
     state: 'SP',
     city: 'Campinas'
@@ -57,7 +58,7 @@ export class CitySelectorComponent implements OnInit {
         });
   }
 
-  private stateChange(state:State):void {
+  public stateChange(state:State):void {
     this.currentState = state;
 
     this.updateAutocomplete();
@@ -93,7 +94,7 @@ export class CitySelectorComponent implements OnInit {
     };
   }
 
-  private onSubmit(f: NgForm, event:Event):void {
+  public onSubmit(f: NgForm, event:Event):void {
     event.preventDefault();
 
     if (f.valid) {

@@ -11,9 +11,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class CurrentWeatherComponent extends WeatherBlock implements OnInit {
 
-  private weatherData:any = {};
-  private currentWeather:any = this.weatherData;
-  private todayForecast:any = {};
+  public currentWeather:any = {};
+  public todayForecast:any = {};
 
   constructor(private weatherService:WeatherService) {
     super();

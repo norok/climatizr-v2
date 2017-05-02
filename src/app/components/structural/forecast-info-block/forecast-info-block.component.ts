@@ -10,7 +10,7 @@ export class ForecastInfoBlockComponent extends WeatherBlock implements OnInit {
   @Input() day:any = {};
   @Input() index:number = 0;
 
-  private todo:string = '';
+  public todo:string = '';
 
   constructor() {
     super();
