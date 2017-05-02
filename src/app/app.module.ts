@@ -9,6 +9,8 @@ import { HeaderComponent } from './components/structural/header/header.component
 import { FooterComponent } from './components/structural/footer/footer.component';
 import { CitySelectorComponent } from './components/functional/city-selector/city-selector.component';
 import { CurrentWeatherComponent } from './components/structural/current-weather/current-weather.component';
+import { ForecastInfoComponent } from './components/structural/forecast-info/forecast-info.component';
+import { ForecastInfoBlockComponent } from './components/structural/forecast-info-block/forecast-info-block.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CurrentWeatherComponent } from './components/structural/current-weather
     HeaderComponent,
     FooterComponent,
     CitySelectorComponent,
-    CurrentWeatherComponent
+    CurrentWeatherComponent,
+    ForecastInfoComponent,
+    ForecastInfoBlockComponent
   ],
   imports: [
     BrowserModule,
