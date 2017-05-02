@@ -11,7 +11,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class CitiesStatesService {
 
-  private statesUrl = '../../assets/estados-cidades.json';
+  private statesUrl = './assets/estados-cidades.json';
   private ready = false;
 
   constructor(private http: Http) {}
