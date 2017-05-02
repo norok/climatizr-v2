@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'shared/shared';
+@import 'shared/variables';
+@import '../node_modules/bootstrap/scss/bootstrap';
 
 html {
   height: 100%;
@@ -14,4 +15,14 @@ body {
 
 app-root {
   padding-bottom: 40px;
+}
+
+.card.cl2-card {
+	background-color: rgba(#000, 0.3);
+	border: none;
+
+  .card-title {
+    color: #FFF;
+    font-size: inherit;
+  }
 }
