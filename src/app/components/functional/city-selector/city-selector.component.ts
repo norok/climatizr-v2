@@ -9,6 +9,7 @@ import { City } from '../../../classes/city';
 import { State } from '../../../classes/state';
 import { CitiesStatesService } from '../../../services/cities-states.service';
 import { LocationService } from '../../../services/location.service';
+import { LocalstorageService } from '../../../services/localstorage.service';
 
 declare var $:any;
 
@@ -16,7 +17,7 @@ declare var $:any;
   selector: 'cl2-city-selector',
   templateUrl: './city-selector.component.html',
   styleUrls: ['./city-selector.component.scss'],
-  providers: [CitiesStatesService, LocationService],
+  providers: [CitiesStatesService, LocationService, LocalstorageService],
 })
 export class CitySelectorComponent implements OnInit {
 
@@ -30,10 +31,14 @@ export class CitySelectorComponent implements OnInit {
     city: 'Campinas'
   }
 
+  private favoriteCity:any = null;
+  private isFavorite:boolean = false;
+
   constructor(
     private citiesStatesService: CitiesStatesService,
     private locationService: LocationService,
-    private weatherService:WeatherService
+    private weatherService:WeatherService,
+    private localStorage:LocalstorageService,
   ) {}
 
   ngOnInit():void {
@@ -46,13 +51,18 @@ export class CitySelectorComponent implements OnInit {
         .then(states => {
           this.states = states;
 
-          var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( this.defaults.state ), "i" );
+          this.getFavorite();
+
+          this.currentCity  = this.favoriteCity == null ? this.defaults.city : this.favoriteCity.city;
+          let favState      = this.favoriteCity == null ? this.defaults.state : this.favoriteCity.state;
+
+          var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( favState ), "i" );
           this.currentState = this.states.filter((value:any) => {
             return matcher.test( value.getAbbr() );
           })[0];
 
           this.updateAutocomplete();
-          this.currentCity = this.defaults.city;
+
           this.updateLocation(this.currentState, this.currentCity);
           this.ready = true;
         });
@@ -102,12 +112,30 @@ export class CitySelectorComponent implements OnInit {
     }
   }
 
-  private updateLocation(state, city) {
+  private updateLocation(state, city):void {
+    this.getFavorite();
+    this.isFavorite = (state.abbr == this.favoriteCity.state && city == this.favoriteCity.city);
+
     this.locationService
         .getPreciseLocation(state, city)
         .subscribe(location => {
           this.weatherService.getWeatherInformation(location);
         });
+  }
+
+  private saveFavorite():void {
+    this.isFavorite = true;
+
+    let object = {
+      'state': this.currentState.getAbbr(),
+      'city': this.currentCity
+    };
+
+    this.localStorage.setJSONData('favoriteCity', object);
+  }
+
+  private getFavorite():void {
+    this.favoriteCity = this.localStorage.getJSONData('favoriteCity');
   }
 
 }
