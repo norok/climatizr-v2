@@ -23,10 +23,10 @@ declare var $:any;
 })
 export class CitySelectorComponent implements OnInit, OnDestroy {
 
-  private currentState: State;
-  private currentCity:string = '';
-  private ready:Boolean = false;
-  private states:State[];
+  public currentState: State;
+  public currentCity:string = '';
+  public ready:Boolean = false;
+  public states:State[];
 
   private defaults:any = {
     state: 'SP',
@@ -159,7 +159,7 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
     })[0];
   }
 
-  private saveFavorite():void {
+  public saveFavorite():void {
     if (this.currentCityIsFavorite()) {
       this.favoritesService.removeCity(this.currentCity, this.currentState.getAbbr());
     }
@@ -172,7 +172,7 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
     this.favorites = this.favoritesService.getFavorites();
   }
 
-  private currentCityIsFavorite():boolean {
+  public currentCityIsFavorite():boolean {
     for (let favorite of this.favorites) {
       if (favorite.city == this.currentCity && favorite.state == this.currentState.getAbbr()) {
         return true;
