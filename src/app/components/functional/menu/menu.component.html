@@ -1,7 +1,7 @@
-<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse"><i class="fa fa-bars"></i></button>
-<div class="navbar-collapse collapse" id="navbar-collapse" role="navigation">
+<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse" *ngIf="favorites.length > 0"><i class="fa fa-bars"></i></button>
+<div class="navbar-collapse collapse" id="navbar-collapse" role="navigation" *ngIf="favorites.length > 0">
   <h5>Cidades Favoritas</h5>
-  <nav>
+  <nav class="favs-nav">
     <ul class="navbar-nav nav menu">
       <li *ngFor="let item of favorites index as i" class="nav-item"><span class="nav-link" (click)="setCity(item.city, item.state)">{{ item.city }}, {{ item.state }}</span> <i class="fa fa-times" (click)="removeCity(i)"></i></li>
     </ul>

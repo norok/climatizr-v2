@@ -11,7 +11,7 @@ import { Subscription } from "rxjs";
 })
 export class MenuComponent implements OnInit, OnDestroy {
 
-  public favorites:Array<any>;
+  public favorites:Array<any> = [];
   private subscription:Subscription;
 
   constructor(

@@ -54,7 +54,8 @@ export class FavoritesService {
   }
 
   public getFavorites():any {
-    this.favorites = this.localStorage.getJSONData('favoriteCities');
+    let storage = this.localStorage.getJSONData('favoriteCities');
+    this.favorites = storage != null ? storage : [];
     return this.favorites;
   }
 
