@@ -16,7 +16,7 @@
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary" title="Ver clima da cidade atual" [disabled]="!ready">Ver Clima</button>
-        <button type="button" class="favorite-button" title="{{ isFavorite ? 'Esta é sua cidade favorita' : 'Favoritar cidade' }}" [disabled]="!ready" (click)="saveFavorite()"><i class="fa" [ngClass]="{'fa-star': isFavorite, 'fa-star-o': !isFavorite}"></i></button>
+        <button type="button" class="favorite-button" title="{{ currentCityIsFavorite() ? 'Esta é sua cidade favorita' : 'Favoritar cidade' }}" [disabled]="!ready" (click)="saveFavorite()"><i class="fa" [ngClass]="{'fa-star': currentCityIsFavorite(), 'fa-star-o': !currentCityIsFavorite()}"></i></button>
       </div>
     </form>
   </div>
