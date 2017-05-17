@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.1.
 
-This is an experiment on porting the original [Climatizr](https://github.com/norok/climatizr) to Angular 4+. Almost everything was remade from scratch and there's some space to make things better so stay tuned for updated. It is now updated with a more than one favorites system that stores data in your LocalStorage instead of cookies.
+This is an experiment on porting the original [Climatizr](https://github.com/norok/climatizr) to Angular 4+. Almost everything was remade from scratch and there's some space to make things better so stay tuned for updates. It is now updated with a more than one favorites system that stores data in your LocalStorage instead of cookies.
 
 Feel free to use, give some feedback and fork it =)
 
