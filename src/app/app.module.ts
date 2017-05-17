@@ -12,6 +12,14 @@ import { CurrentWeatherComponent } from './components/structural/current-weather
 import { ForecastInfoComponent } from './components/structural/forecast-info/forecast-info.component';
 import { ForecastInfoBlockComponent } from './components/structural/forecast-info-block/forecast-info-block.component';
 import { ForecastGraphComponent } from './components/structural/forecast-graph/forecast-graph.component';
+import { MenuComponent } from './components/functional/menu/menu.component';
+
+import { LocationService } from './services/location.service';
+import { CitiesStatesService } from './services/cities-states.service';
+import { NavService } from './services/nav.service';
+import { LocalstorageService } from './services/localstorage.service';
+import { FavoritesService } from './services/favorites.service';
+import { WeatherService } from './services/weather.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +31,8 @@ import { ForecastGraphComponent } from './components/structural/forecast-graph/f
     CurrentWeatherComponent,
     ForecastInfoComponent,
     ForecastInfoBlockComponent,
-    ForecastGraphComponent
+    ForecastGraphComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +40,7 @@ import { ForecastGraphComponent } from './components/structural/forecast-graph/f
     HttpModule,
     JsonpModule
   ],
-  providers: [],
+  providers: [WeatherService, LocalstorageService, FavoritesService, NavService, CitiesStatesService, LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

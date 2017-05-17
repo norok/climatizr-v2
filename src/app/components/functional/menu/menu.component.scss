@@ -1,0 +1,23 @@
+.navbar-toggler {
+  color: #FFF;
+  cursor: pointer;
+  height: 38px;
+  line-height: 38px;
+  outline: none;
+  padding: 0 15px;
+  position: absolute;
+  right: 15px;
+  top: 0;
+}
+
+.navbar-collapse {
+  text-align: right;
+  color: #FFF;
+  padding: 10px 0;
+  font-size: 0.9em;
+
+  .nav-link {
+    cursor: pointer;
+    display: inline-block;
+  }
+}
