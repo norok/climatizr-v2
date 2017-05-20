@@ -1,3 +1,4 @@
+import { LoaderService } from './loader.service';
 import { Observable, Subject } from 'rxjs/Rx';
 import { GeoLocation } from '../classes/geo-location';
 import { Http, URLSearchParams, RequestOptions, Response, Jsonp } from '@angular/http';
@@ -13,7 +14,9 @@ export class WeatherService {
 
   private weatherData:Subject<any> = new Subject<any>();
 
-  constructor(private jsonp:Jsonp) {}
+  constructor(
+    private jsonp:Jsonp,
+  ) {}
 
   public weatherInformation$ = this.weatherData.asObservable();
 

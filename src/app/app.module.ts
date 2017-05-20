@@ -20,6 +20,7 @@ import { NavService } from './services/nav.service';
 import { LocalstorageService } from './services/localstorage.service';
 import { FavoritesService } from './services/favorites.service';
 import { WeatherService } from './services/weather.service';
+import { LoaderService } from "app/services/loader.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { WeatherService } from './services/weather.service';
     HttpModule,
     JsonpModule
   ],
-  providers: [WeatherService, LocalstorageService, FavoritesService, NavService, CitiesStatesService, LocationService],
+  providers: [WeatherService, LocalstorageService, FavoritesService, NavService, CitiesStatesService, LocationService, LoaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

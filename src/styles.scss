@@ -31,3 +31,14 @@ app-root {
     padding-top: 10px;
   }
 }
+
+.loading {
+  background: transparent url('assets/pageloader.gif') center no-repeat;
+  background-size: auto 40px;
+	opacity: 0.5;
+}
+
+.base-transition {
+  transition: all 400ms ease-out 0s;
+  background-position: center;
+}

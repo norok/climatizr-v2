@@ -1,4 +1,4 @@
-<section class="forecast card cl2-card text-center">
+<section class="forecast card cl2-card text-center base-transition" [ngClass]="{'loading': loaderStatus}">
   <div class="card-body">
     <h4 class="card-title">Previsão para os próximos dias</h4>
     <ul class="list-unstyled owl-carousel" id="forecast-carousel">

@@ -1,4 +1,4 @@
-<section class="card text-center cl2-card" id="city-selector">
+<section class="card text-center cl2-card base-transition" id="city-selector" [ngClass]="{'loading': loaderStatus}">
   <div class="card-block">
     <h4 class="card-title">Selecione seu Estado e Cidade</h4>
     <form class="form-inline" #f="ngForm" (ngSubmit)="onSubmit(f, $event)">

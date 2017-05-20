@@ -1,3 +1,4 @@
+import { LoaderService } from '../../../services/loader.service';
 import { FavoritesService } from '../../../services/favorites.service';
 import { NavService } from '../../../services/nav.service';
 import { WeatherService } from '../../../services/weather.service';
@@ -27,6 +28,7 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
   public currentCity:string = '';
   public ready:Boolean = false;
   public states:State[];
+  public loaderStatus:Boolean = true;
 
   private defaults:any = {
     state: 'SP',
@@ -37,6 +39,7 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
   private isFavorite:boolean = false;
   private favSubscription:Subscription;
   private navSubscription:Subscription;
+  private loaderSubscription:Subscription;
 
   constructor(
     private citiesStatesService: CitiesStatesService,
@@ -44,6 +47,7 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
     private weatherService:WeatherService,
     private navService:NavService,
     private favoritesService:FavoritesService,
+    private loaderService:LoaderService,
   ) {}
 
   ngOnInit():void {
@@ -57,6 +61,11 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
         this.stateChange(this.getStateByAbbr(nav.state));
         this.currentCity = nav.city;
         this.updateLocation();
+      });
+
+    this.loaderSubscription = this.loaderService.loaderItem$
+      .subscribe(data => {
+        this.setLoader(data)
       });
 
     this.getStates();
@@ -140,6 +149,7 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
   }
 
   private updateLocation():void {
+    this.loaderService.startLoader();
     let city = this.currentCity;
     let state = this.currentState;
 
@@ -180,6 +190,11 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
     }
 
     return false;
+  }
+
+  private setLoader(status):void {
+    console.log(status);
+    this.loaderStatus = status;
   }
 
 }

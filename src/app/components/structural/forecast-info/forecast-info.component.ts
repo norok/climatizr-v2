@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { LoaderService } from '../../../services/loader.service';
 import { WeatherService } from '../../../services/weather.service';
+import { Subscription } from "rxjs";
 
 declare var $:any;
 
@@ -8,20 +10,37 @@ declare var $:any;
   templateUrl: './forecast-info.component.html',
   styleUrls: ['./forecast-info.component.scss']
 })
-export class ForecastInfoComponent implements OnInit {
+export class ForecastInfoComponent implements OnInit, OnDestroy {
+
+  private forecastCarousel:any;
+  private weatherSubscription:Subscription;
+  private loaderSubscription:Subscription;
 
   public forecast:Array<any> = [];
-  private forecastCarousel:any;
+  public loaderStatus:Boolean = true;
 
-  constructor(private weatherService:WeatherService) {
-    weatherService.weatherInformation$.subscribe(
-      (data) => this.updateData(data)
-    );
+  constructor(
+    private weatherService:WeatherService,
+    private loaderService:LoaderService,
+  ) {}
+
+  ngOnInit():void {
+    this.weatherSubscription = this.weatherService.weatherInformation$
+      .subscribe(data => {
+        this.updateData(data)
+      });
+    this.loaderSubscription = this.loaderService.loaderItem$
+      .subscribe(data => {
+        this.setLoader(data)
+      });
   }
 
-  ngOnInit() {}
+  ngOnDestroy():void {
+    this.weatherSubscription.unsubscribe();
+    this.loaderSubscription.unsubscribe();
+  }
 
-  private updateData(data) {
+  private updateData(data):void {
     let array:Array<any> = data.daily.data;
     array.shift(); // Removes the current day since we don't need it
     this.forecast = array;
@@ -58,6 +77,11 @@ export class ForecastInfoComponent implements OnInit {
         }
       });
     });
+  }
+
+  private setLoader(status):void {
+    console.log(status);
+    this.loaderStatus = status;
   }
 
 }

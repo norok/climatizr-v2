@@ -1,4 +1,4 @@
-<section class="current-weather">
+<section class="current-weather base-transition" [ngClass]="{'loading': loaderStatus}">
   <h2 class="sr-only">Tempo Atual</h2>
   <div class="date">
     {{ currentWeather.time * 1000 | date:'EEE, dd/MM'  }}

@@ -1,6 +1,8 @@
 import { DecimalPipe, DatePipe } from '@angular/common';
 import { WeatherService } from '../../../services/weather.service';
-import { Component, OnInit } from '@angular/core';
+import { LoaderService } from "app/services/loader.service";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from "rxjs";
 
 declare var Chart:any;
 
@@ -10,20 +12,30 @@ declare var Chart:any;
   styleUrls: ['./forecast-graph.component.scss'],
   providers: [DecimalPipe, DatePipe]
 })
-export class ForecastGraphComponent implements OnInit {
+export class ForecastGraphComponent implements OnInit, OnDestroy {
 
   private forecastChart:any;
+  private weatherSubscription:Subscription;
+  private loaderSubscription:Subscription;
+
+  public loaderStatus:Boolean = true;
 
   constructor(
     private weatherService:WeatherService,
+    private loaderService:LoaderService,
     private datePipe:DatePipe,
-    private decimalPipe:DecimalPipe) {
-    weatherService.weatherInformation$.subscribe(
-      (data) => this.updateData(data)
-    );
-  }
+    private decimalPipe:DecimalPipe
+  ) {}
 
   ngOnInit() {
+    this.weatherSubscription = this.weatherService.weatherInformation$
+      .subscribe(data => {
+        this.updateData(data)
+      });
+    this.loaderSubscription = this.loaderService.loaderItem$
+      .subscribe(data => {
+        this.setLoader(data)
+      });
     setTimeout(() => {
       this.forecastChart = new Chart('forecast-chart', {
         type: 'line',
@@ -41,6 +53,11 @@ export class ForecastGraphComponent implements OnInit {
 
       this.forecastChart.height = 300;
     });
+  }
+
+  ngOnDestroy():void {
+    this.weatherSubscription.unsubscribe();
+    this.loaderSubscription.unsubscribe();
   }
 
   private updateData(data):void {
@@ -75,6 +92,11 @@ export class ForecastGraphComponent implements OnInit {
     }
 
     this.forecastChart.update();
+  }
+
+  private setLoader(status):void {
+    console.log(status);
+    this.loaderStatus = status;
   }
 
 }
