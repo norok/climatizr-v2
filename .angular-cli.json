@@ -30,8 +30,7 @@
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "./assets/jquery-ui/jquery-ui.min.js",
-        "../node_modules/tether/dist/js/tether.min.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
         "./assets/skycons.js",
         "./assets/owl-carousel/owl.carousel.min.js",
         "./assets/Chart.bundle.min.js"

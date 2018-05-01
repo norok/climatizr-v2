@@ -12,9 +12,9 @@ import { City } from '../../../classes/city';
 import { State } from '../../../classes/state';
 import { CitiesStatesService } from '../../../services/cities-states.service';
 import { LocationService } from '../../../services/location.service';
-import { Subscription } from "rxjs";
+import { Subscription } from 'rxjs/Subscription';
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'cl2-city-selector',
@@ -25,32 +25,32 @@ declare var $:any;
 export class CitySelectorComponent implements OnInit, OnDestroy {
 
   public currentState: State;
-  public currentCity:string = '';
-  public ready:Boolean = false;
-  public states:State[];
-  public loaderStatus:Boolean = true;
+  public currentCity = '';
+  public ready: Boolean = false;
+  public states: State[];
+  public loaderStatus: Boolean = true;
 
-  private defaults:any = {
+  private defaults: any = {
     state: 'SP',
     city: 'Campinas'
   }
 
-  private favorites:Array<any> = [];
-  private isFavorite:boolean = false;
-  private favSubscription:Subscription;
-  private navSubscription:Subscription;
-  private loaderSubscription:Subscription;
+  private favorites: Array<any> = [];
+  private isFavorite: Boolean = false;
+  private favSubscription: Subscription;
+  private navSubscription: Subscription;
+  private loaderSubscription: Subscription;
 
   constructor(
     private citiesStatesService: CitiesStatesService,
     private locationService: LocationService,
-    private weatherService:WeatherService,
-    private navService:NavService,
-    private favoritesService:FavoritesService,
-    private loaderService:LoaderService,
+    private weatherService: WeatherService,
+    private navService: NavService,
+    private favoritesService: FavoritesService,
+    private loaderService: LoaderService,
   ) {}
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.favSubscription = this.favoritesService.favoritedItem$
       .subscribe(item => {
         this.getFavorites();
@@ -71,26 +71,25 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
     this.getStates();
   }
 
-  ngOnDestroy():void {
+  ngOnDestroy(): void {
     this.navSubscription.unsubscribe();
     this.favSubscription.unsubscribe();
   }
 
-  private getStates():void {
+  private getStates(): void {
     this.citiesStatesService
       .getLocations()
       .then(states => {
         this.states = states;
         this.getFavorites();
 
-        let fave = !!this.favorites ? this.favorites[0] : false;
+        const fave = !!this.favorites ? this.favorites[0] : false;
         let favState;
 
         if (fave) {
           this.currentCity  = fave.city;
           favState = fave.state;
-        }
-        else {
+        } else {
           this.currentCity = this.defaults.city;
           favState = this.defaults.state;
         }
@@ -104,21 +103,21 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
       });
   }
 
-  public stateChange(state:State):void {
+  public stateChange(state: State): void {
     this.currentState = state;
 
     this.updateAutocomplete();
   }
 
-  private updateAutocomplete():void {
-    let that = this;
-    let citiesList = this.currentState.getCities();
+  private updateAutocomplete(): void {
+    const that = this;
+    const citiesList = this.currentState.getCities();
 
     $('#form-city').autocomplete({
       source: function(request, response) {
-        var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+        const matcher = new RegExp( '^' + $.ui.autocomplete.escapeRegex( request.term ), 'i' );
         response(
-          citiesList.filter((value:any) => {
+          citiesList.filter((value: any) => {
             return matcher.test( value.getName() );
           })
         );
@@ -133,14 +132,14 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
         return false;
       },
     })
-    .autocomplete('instance')._renderItem = function(ul, item:City) {
+    .autocomplete('instance')._renderItem = function(ul, item: City) {
       return $('<li>')
         .append(item.getName())
         .appendTo(ul);
     };
   }
 
-  public onSubmit(f: NgForm, event:Event):void {
+  public onSubmit(f: NgForm, event: Event): void {
     event.preventDefault();
 
     if (f.valid) {
@@ -148,10 +147,10 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
     }
   }
 
-  private updateLocation():void {
+  private updateLocation(): void {
     this.loaderService.startLoader();
-    let city = this.currentCity;
-    let state = this.currentState;
+    const city = this.currentCity;
+    const state = this.currentState;
 
     this.getFavorites();
 
@@ -162,29 +161,28 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
         });
   }
 
-  private getStateByAbbr(abbr:string):State {
-    var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( abbr ), "i" );
-    return this.states.filter((value:any) => {
+  private getStateByAbbr(abbr): State {
+    const matcher = new RegExp( '^' + $.ui.autocomplete.escapeRegex( abbr ), 'i' );
+    return this.states.filter((value: any) => {
       return matcher.test( value.getAbbr() );
     })[0];
   }
 
-  public saveFavorite():void {
+  public saveFavorite(): void {
     if (this.currentCityIsFavorite()) {
       this.favoritesService.removeCity(this.currentCity, this.currentState.getAbbr());
-    }
-    else {
+    } else {
       this.favoritesService.addCity(this.currentCity, this.currentState.getAbbr());
     }
   }
 
-  private getFavorites():void {
+  private getFavorites(): void {
     this.favorites = this.favoritesService.getFavorites();
   }
 
-  public currentCityIsFavorite():boolean {
-    for (let favorite of this.favorites) {
-      if (favorite.city == this.currentCity && favorite.state == this.currentState.getAbbr()) {
+  public currentCityIsFavorite(): boolean {
+    for (const favorite of this.favorites) {
+      if (favorite.city === this.currentCity && favorite.state === this.currentState.getAbbr()) {
         return true;
       }
     }
@@ -192,7 +190,7 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  private setLoader(status):void {
+  private setLoader(status): void {
     console.log(status);
     this.loaderStatus = status;
   }

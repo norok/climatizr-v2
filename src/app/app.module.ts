@@ -20,7 +20,7 @@ import { NavService } from './services/nav.service';
 import { LocalstorageService } from './services/localstorage.service';
 import { FavoritesService } from './services/favorites.service';
 import { WeatherService } from './services/weather.service';
-import { LoaderService } from "app/services/loader.service";
+import { LoaderService } from 'app/services/loader.service';
 
 @NgModule({
   declarations: [

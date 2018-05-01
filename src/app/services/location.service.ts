@@ -8,14 +8,14 @@ import { State } from '../classes/state';
 
 import 'rxjs/add/operator/map';
 
-const BASE_URL:string = '//maps.google.com/maps/api/geocode/json';
+const BASE_URL = '//maps.google.com/maps/api/geocode/json';
 
 @Injectable()
 export class LocationService {
 
-  private currentLocation:GeoLocation = null;
+  private currentLocation: GeoLocation = null;
 
-  constructor(private http:Http) { }
+  constructor(private http: Http) { }
 
   /**
    * Returns a GeoLocation object with the latitude and longitude of the given location
@@ -23,9 +23,9 @@ export class LocationService {
    * @param state State
    * @param city String
    */
-  public getPreciseLocation(state:State, city:string):Observable<GeoLocation> {
-    let params = new URLSearchParams();
-    let options = new RequestOptions();
+  public getPreciseLocation(state: State, city: String): Observable<GeoLocation> {
+    const params = new URLSearchParams();
+    const options = new RequestOptions();
 
     params.set('address', state.getAbbr() + ',' + city);
     params.set('sensor', 'false');
@@ -41,9 +41,9 @@ export class LocationService {
    *
    * @param data
    */
-  private transformData(data):GeoLocation {
-    let geomLocation = data.results[0].geometry.location;
-    let output = new GeoLocation(geomLocation.lat, geomLocation.lng);
+  private transformData(data): GeoLocation {
+    const geomLocation = data.results[0].geometry.location;
+    const output = new GeoLocation(geomLocation.lat, geomLocation.lng);
 
     return output;
   }
@@ -53,7 +53,7 @@ export class LocationService {
    *
    * @param error
    */
-  private handleError(error: any):Promise<any> {
+  private handleError(error: any): Promise<any> {
     console.error('Ocorreu um erro ao carregar os estados', error);
     return Promise.reject(error.message || error);
   }
