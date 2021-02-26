@@ -1,10 +1,12 @@
+
+import {map} from 'rxjs/operators';
 import { LoaderService } from './loader.service';
-import { Observable, Subject } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs';
 import { GeoLocation } from '../classes/geo-location';
 import { Http, URLSearchParams, RequestOptions, Response, Jsonp } from '@angular/http';
 import { Injectable } from '@angular/core';
 
-import 'rxjs/add/operator/map';
+
 
 const BASE_URL = 'https://api.darksky.net/forecast/';
 const KEY = 'd2deeb708d6b5a2f85682a02f40a8d9d';
@@ -39,8 +41,8 @@ export class WeatherService {
     let url = BASE_URL + KEY + '/' + location.getLatitude() + ',' + location.getLongitude();
 
     return this.jsonp
-               .get(url, options)
-               .map( resp => resp.json() );
+               .get(url, options).pipe(
+               map( resp => resp.json() ));
   }
 
 }

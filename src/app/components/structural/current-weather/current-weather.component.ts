@@ -1,6 +1,6 @@
 import { LoaderService } from '../../../services/loader.service';
 import { WeatherBlock } from '../../../classes/weather-block';
-import { Subscription } from 'rxjs/Rx';
+import { Subscription } from 'rxjs';
 import { WeatherService } from '../../../services/weather.service';
 import { GeoLocation } from '../../../classes/geo-location';
 import { Component, OnInit, OnDestroy } from '@angular/core';

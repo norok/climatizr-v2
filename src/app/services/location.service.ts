@@ -1,4 +1,6 @@
-import { Observable } from 'rxjs/Rx';
+
+import {map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Http, URLSearchParams, RequestOptions, Response } from '@angular/http';
 
@@ -6,7 +8,7 @@ import { GeoLocation } from '../classes/geo-location';
 import { City } from '../classes/city';
 import { State } from '../classes/state';
 
-import 'rxjs/add/operator/map';
+
 
 const BASE_URL = '//maps.google.com/maps/api/geocode/json';
 
@@ -32,8 +34,8 @@ export class LocationService {
     options.search = params;
 
     return this.http
-            .get(BASE_URL, options)
-            .map((resp: Response) => this.transformData(resp.json()));
+            .get(BASE_URL, options).pipe(
+            map((resp: Response) => this.transformData(resp.json())));
   }
 
   /**

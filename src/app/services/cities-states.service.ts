@@ -4,9 +4,9 @@ import { Http } from '@angular/http';
 import { State } from '../classes/state';
 import { City } from '../classes/city';
 
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs';
+
+
 
 @Injectable()
 export class CitiesStatesService {

@@ -12,7 +12,7 @@ import { City } from '../../../classes/city';
 import { State } from '../../../classes/state';
 import { CitiesStatesService } from '../../../services/cities-states.service';
 import { LocationService } from '../../../services/location.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 declare var $: any;
 
