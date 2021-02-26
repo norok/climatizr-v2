@@ -2,10 +2,7 @@ import { LoaderService } from '../../../services/loader.service';
 import { FavoritesService } from '../../../services/favorites.service';
 import { NavService } from '../../../services/nav.service';
 import { WeatherService } from '../../../services/weather.service';
-import { CurrentWeatherComponent } from '../../structural/current-weather/current-weather.component';
-import { EventEmitter } from 'events';
-import { GeoLocation } from '../../../classes/geo-location';
-import { NgForm } from '@angular/forms/src/directives';
+import { NgForm } from '@angular/forms';
 import { Component, OnInit, OnDestroy, Input, Output } from '@angular/core';
 
 import { City } from '../../../classes/city';

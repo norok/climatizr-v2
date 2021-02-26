@@ -4,9 +4,6 @@ import { Http } from '@angular/http';
 import { State } from '../classes/state';
 import { City } from '../classes/city';
 
-import { Observable } from 'rxjs';
-
-
 
 @Injectable()
 export class CitiesStatesService {
