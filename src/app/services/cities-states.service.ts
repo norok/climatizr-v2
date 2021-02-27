@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
 
-import { Http } from '@angular/http';
 import { State } from '../classes/state';
 import { City } from '../classes/city';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable()
 export class CitiesStatesService {
 
   private statesUrl = './assets/estados-cidades.json';
-  private ready = false;
 
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   /**
    * Returns a promise for the Cities and States transformed data
@@ -31,10 +30,10 @@ export class CitiesStatesService {
    * @param data
    */
   private transformData(data):State[] {
-    let states:State[] = [];
+    const states:State[] = [];
 
-    for (let estado of data.json().estados) {
-      let cities:City[] = [];
+    for (let estado of data.estados) {
+      const cities:City[] = [];
 
       for (let cidade of estado.cidades) {
         let city = new City(cidade);
@@ -45,7 +44,6 @@ export class CitiesStatesService {
       states.push(state);
     }
 
-    this.ready = true;
     return states;
   }
 

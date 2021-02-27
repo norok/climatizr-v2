@@ -1,23 +1,22 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, RequestOptions, Response } from '@angular/http';
 
 import { GeoLocation } from '../classes/geo-location';
 import { City } from '../classes/city';
 import { State } from '../classes/state';
 
 
-
-const BASE_URL = '//maps.google.com/maps/api/geocode/json';
+const BASE_URL = 'https://maps.google.com/maps/api/geocode/json';
 
 @Injectable()
 export class LocationService {
 
   private currentLocation: GeoLocation = null;
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   /**
    * Returns a GeoLocation object with the latitude and longitude of the given location
@@ -26,16 +25,18 @@ export class LocationService {
    * @param city String
    */
   public getPreciseLocation(state: State, city: String): Observable<GeoLocation> {
-    const params = new URLSearchParams();
-    const options = new RequestOptions();
-
-    params.set('address', state.getAbbr() + ',' + city);
-    params.set('sensor', 'false');
-    options.search = params;
+    const params = new HttpParams({
+      fromObject: {
+        'address': `${state.getAbbr()},${city}`,
+        'key': 'AIzaSyCYtCAVso06Kg23Zf6eyHvTKb7MN6jXsd0'
+      }
+    });
 
     return this.http
-            .get(BASE_URL, options).pipe(
-            map((resp: Response) => this.transformData(resp.json())));
+            .get(BASE_URL, { params: params })
+            .pipe(
+              map( (resp: Response) => this.transformData(resp) )
+            );
   }
 
   /**

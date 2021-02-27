@@ -20,20 +20,24 @@
             "assets": [
               "src/assets",
               "src/favicon.ico",
-              "node_modules/font-awesome/fonts"
+              {
+                "glob": "**/*",
+                "input": "./node_modules/font-awesome/fonts",
+                "output": "./assets/font-awesome/fonts"
+              }
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/font-awesome/css/font-awesome.min.css",
+              "./node_modules/font-awesome/css/font-awesome.min.css",
               "src/assets/jquery-ui/jquery-ui.min.css",
               "src/assets/jquery-ui/jquery-ui.structure.min.css",
               "src/assets/jquery-ui/jquery-ui.theme.min.css",
               "src/assets/owl-carousel/assets/owl.carousel.min.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
               "src/assets/jquery-ui/jquery-ui.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
               "src/assets/skycons.js",
               "src/assets/owl-carousel/owl.carousel.min.js",
               "src/assets/Chart.bundle.min.js"

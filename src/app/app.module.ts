@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, JsonpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { BackgroundComponent } from './components/structural/background/background.component';
@@ -38,8 +38,7 @@ import { LoaderService } from 'app/services/loader.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
-    JsonpModule
+    HttpClientModule
   ],
   providers: [WeatherService, LocalstorageService, FavoritesService, NavService, CitiesStatesService, LocationService, LoaderService],
   bootstrap: [AppComponent]
