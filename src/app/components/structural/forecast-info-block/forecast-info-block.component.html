@@ -4,10 +4,10 @@
   </div>
   <canvas id="icon-day-{{ index }}" class="icon" width="50" height="50"></canvas>
   <div class="min-max">
-    <div class="max"><i class="fa fa-caret-up"></i> {{ day.temperatureMax | number:'1.0-0' }}°C</div>
-    <div class="min"><i class="fa fa-caret-down"></i> {{ day.temperatureMin | number:'1.0-0' }}°C</div>
+    <div class="max"><i class="fa fa-caret-up"></i> {{ day.temp.min | number:'1.0-0' }}°C</div>
+    <div class="min"><i class="fa fa-caret-down"></i> {{ day.temp.max | number:'1.0-0' }}°C</div>
   </div>
   <div class="summary">
-    {{ day.summary }}
+    {{ day.weather[0].description }}
   </div>
 </div>
