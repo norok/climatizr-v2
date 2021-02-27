@@ -1,3 +1,4 @@
+import { IconsService } from './services/icons.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -40,7 +41,15 @@ import { LoaderService } from 'app/services/loader.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [WeatherService, LocalstorageService, FavoritesService, NavService, CitiesStatesService, LocationService, LoaderService],
+  providers: [
+    WeatherService,
+    LocalstorageService,
+    FavoritesService,
+    NavService,
+    CitiesStatesService,
+    LocationService,
+    LoaderService,
+    IconsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

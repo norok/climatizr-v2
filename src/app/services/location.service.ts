@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { map } from 'rxjs/operators';
@@ -5,11 +6,10 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { GeoLocation } from '../classes/geo-location';
-import { City } from '../classes/city';
 import { State } from '../classes/state';
 
-
-const BASE_URL = 'https://maps.google.com/maps/api/geocode/json';
+const BASE_URL = environment.GoogleGeocodeAPIEndpoint;
+const API_KEY = environment.GeocodeAPIKey;
 
 @Injectable()
 export class LocationService {
@@ -28,12 +28,12 @@ export class LocationService {
     const params = new HttpParams({
       fromObject: {
         'address': `${state.getAbbr()},${city}`,
-        'key': 'AIzaSyCYtCAVso06Kg23Zf6eyHvTKb7MN6jXsd0'
+        'key': API_KEY
       }
     });
 
     return this.http
-            .get(BASE_URL, { params: params })
+            .get(BASE_URL, { params })
             .pipe(
               map( (resp: Response) => this.transformData(resp) )
             );

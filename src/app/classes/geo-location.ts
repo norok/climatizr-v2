@@ -4,15 +4,11 @@ export class GeoLocation {
     private longitude:number
   ) {}
 
-  private get(param:string):any {
-    return this[param];
+  public getLatitude():string {
+    return this.latitude.toString();
   }
 
-  public getLatitude():number {
-    return this.get('latitude');
-  }
-
-  public getLongitude():number {
-    return this.get('longitude');
+  public getLongitude():string {
+    return this.longitude.toString();
   }
 }

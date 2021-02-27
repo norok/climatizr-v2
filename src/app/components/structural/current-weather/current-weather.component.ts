@@ -1,8 +1,8 @@
+import { IconsService } from './../../../services/icons.service';
 import { LoaderService } from '../../../services/loader.service';
 import { WeatherBlock } from '../../../classes/weather-block';
 import { Subscription } from 'rxjs';
 import { WeatherService } from '../../../services/weather.service';
-import { GeoLocation } from '../../../classes/geo-location';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
@@ -12,9 +12,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 })
 export class CurrentWeatherComponent extends WeatherBlock implements OnInit {
 
-  private weatherSubscription:Subscription;
-  private loaderSubscription:Subscription;
-
   public currentWeather:any = {};
   public todayForecast:any = {};
   public loaderStatus:Boolean = true;
@@ -22,31 +19,31 @@ export class CurrentWeatherComponent extends WeatherBlock implements OnInit {
   constructor(
     private weatherService:WeatherService,
     private loaderService:LoaderService,
+    private icons:IconsService
   ) {
     super();
   }
 
   ngOnInit() {
     super.ngOnInit();
-    this.weatherSubscription = this.weatherService.weatherInformation$
+    this.weatherService.weatherInformation$
       .subscribe(data => {
         this.updateData(data)
       });
-    this.loaderSubscription = this.loaderService.loaderItem$
+    this.loaderService.loaderItem$
       .subscribe(data => {
         this.setLoader(data)
       });
   }
 
   private updateData(data):void {
-    this.currentWeather = data.currently;
-    this.todayForecast = data.daily.data[0];
+    this.currentWeather = data.current;
+    this.todayForecast = data.daily[0];
 
-    this.setIcon('icon-current', this.currentWeather.icon);
+    this.setIcon('icon-current', this.icons.getIcon(this.currentWeather.weather[0].icon));
   }
 
   private setLoader(status):void {
-    console.log(status);
     this.loaderStatus = status;
   }
 
