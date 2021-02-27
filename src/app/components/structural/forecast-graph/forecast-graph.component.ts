@@ -61,35 +61,34 @@ export class ForecastGraphComponent implements OnInit, OnDestroy {
   }
 
   private updateData(data):void {
-    let days:Array<any> = [];
-    let highs:Array<any> = [];
-    let lows:Array<any> = [];
+    const days:Array<any> = [];
+    const highs:Array<any> = [];
+    const lows:Array<any> = [];
 
-    for (let day of data.daily.data) {
-      // Build data for building the chart
-      days.push(this.datePipe.transform(day.time * 1000,'EEE, dd/MM'));
-      highs.push(this.decimalPipe.transform(day.temperatureMax, '1.0-0'));
-      lows.push(this.decimalPipe.transform(day.temperatureMin, '1.0-0'));
+    data.daily.map( day => {
+      days.push(this.datePipe.transform(day.dt * 1000,'EEE, dd/MM'));
+      highs.push(this.decimalPipe.transform(day.temp.min, '1.0-0'));
+      lows.push(this.decimalPipe.transform(day.temp.max, '1.0-0'));
+    });
 
-      // Updates the chart datasets
-      this.forecastChart.data.labels = days;
-      this.forecastChart.data.datasets = [
-        {
-          label: 'Altas',
-          data: highs,
-          borderColor: "rgba(192,85,83,1)",
-          backgroundColor: "rgba(255,255,255,0.2)",
-          borderWidth: 4,
-        },
-        {
-          label: 'Baixas',
-          data: lows,
-          borderColor: "rgba(83,80,188,1)",
-          backgroundColor: "rgba(255,255,255,0.2)",
-          borderWidth: 4,
-        }
-      ];
-    }
+    // Updates the chart datasets
+    this.forecastChart.data.labels = days;
+    this.forecastChart.data.datasets = [
+      {
+        label: 'Altas',
+        data: highs,
+        borderColor: "rgba(192,85,83,1)",
+        backgroundColor: "rgba(255,255,255,0.2)",
+        borderWidth: 4,
+      },
+      {
+        label: 'Baixas',
+        data: lows,
+        borderColor: "rgba(83,80,188,1)",
+        backgroundColor: "rgba(255,255,255,0.2)",
+        borderWidth: 4,
+      }
+    ];
 
     this.forecastChart.update();
   }
