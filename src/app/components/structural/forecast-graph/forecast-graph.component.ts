@@ -67,8 +67,8 @@ export class ForecastGraphComponent implements OnInit, OnDestroy {
 
     data.daily.map( day => {
       days.push(this.datePipe.transform(day.dt * 1000,'EEE, dd/MM'));
-      highs.push(this.decimalPipe.transform(day.temp.min, '1.0-0'));
-      lows.push(this.decimalPipe.transform(day.temp.max, '1.0-0'));
+      highs.push(this.decimalPipe.transform(day.temp.max, '1.0-0'));
+      lows.push(this.decimalPipe.transform(day.temp.min, '1.0-0'));
     });
 
     // Updates the chart datasets
@@ -94,7 +94,6 @@ export class ForecastGraphComponent implements OnInit, OnDestroy {
   }
 
   private setLoader(status):void {
-    console.log(status);
     this.loaderStatus = status;
   }
 

@@ -93,8 +93,6 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
 
         this.currentState = this.getStateByAbbr(favState);
 
-        this.updateAutocomplete();
-
         this.updateLocation();
         this.ready = true;
       });
@@ -102,38 +100,6 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
 
   public stateChange(state: State): void {
     this.currentState = state;
-
-    this.updateAutocomplete();
-  }
-
-  private updateAutocomplete(): void {
-    const that = this;
-    const citiesList = this.currentState.getCities();
-
-    $('#form-city').autocomplete({
-      source: function(request, response) {
-        const matcher = new RegExp( '^' + $.ui.autocomplete.escapeRegex( request.term ), 'i' );
-        response(
-          citiesList.filter((value: any) => {
-            return matcher.test( value.getName() );
-          })
-        );
-      },
-      minLenght: 0,
-      focus: function(event, ui) {
-        that.currentCity = ui.item.getName();
-        return false;
-      },
-      select: function(event, ui) {
-        that.currentCity = ui.item.getName();
-        return false;
-      },
-    })
-    .autocomplete('instance')._renderItem = function(ul, item: City) {
-      return $('<li>')
-        .append(item.getName())
-        .appendTo(ul);
-    };
   }
 
   public onSubmit(f: NgForm, event: Event): void {
@@ -188,7 +154,6 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
   }
 
   private setLoader(status): void {
-    console.log(status);
     this.loaderStatus = status;
   }
 

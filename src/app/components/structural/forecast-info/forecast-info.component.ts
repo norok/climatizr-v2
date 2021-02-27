@@ -80,7 +80,6 @@ export class ForecastInfoComponent implements OnInit, OnDestroy {
   }
 
   private setLoader(status):void {
-    console.log(status);
     this.loaderStatus = status;
   }
 

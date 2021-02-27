@@ -25,7 +25,6 @@ export class ForecastInfoBlockComponent extends WeatherBlock implements OnInit {
     // Used this "hack" to set the icon only after the dom is fully rendered
     setTimeout(() => {
       const icon = this.icons.getIcon(this.day.weather[0].icon);
-      console.log(this.day);
 
       this.setIcon(`icon-day-` + this.index.toString(), icon);
       this.whatToDo(this.index, icon, this.day.dt * 1000);
