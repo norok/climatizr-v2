@@ -4,6 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 This is an experiment on porting the original [Climatizr](https://github.com/norok/climatizr) to Angular 4+. Almost everything was remade from scratch and there's some space to make things better so stay tuned for updates. It is now updated with a more than one favorites system that stores data in your LocalStorage instead of cookies.
 
+It has been updated to Angular 11 and the Weather and Geocoding API were changed too.
+
 Feel free to use, give some feedback and fork it =)
 
 ## Development server
