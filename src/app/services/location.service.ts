@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { GeoLocation } from '../classes/geo-location';
 import { State } from '../classes/state';
 
-const BASE_URL = environment.GoogleGeocodeAPIEndpoint;
+const BASE_URL = environment.GeocodeAPIEndpoint;
 const API_KEY = environment.GeocodeAPIKey;
 
 @Injectable()
@@ -27,13 +27,13 @@ export class LocationService {
   public getPreciseLocation(state: State, city: String): Observable<GeoLocation> {
     const params = new HttpParams({
       fromObject: {
-        'address': `${state.getAbbr()},${city}`,
-        'key': API_KEY
+        'query': `${city}, ${state.getAbbr()}`,
+        'access_key': API_KEY
       }
     });
 
     return this.http
-            .get(BASE_URL, { params })
+            .get(`${BASE_URL}/forward`, { params })
             .pipe(
               map( (resp: Response) => this.transformData(resp) )
             );
@@ -45,8 +45,8 @@ export class LocationService {
    * @param data
    */
   private transformData(data): GeoLocation {
-    const geomLocation = data.results[0].geometry.location;
-    const output = new GeoLocation(geomLocation.lat, geomLocation.lng);
+    const geomLocation = data.data[0];
+    const output = new GeoLocation(geomLocation.latitude, geomLocation.longitude);
 
     return output;
   }

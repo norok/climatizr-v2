@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  GoogleGeocodeAPIEndpoint: 'https://maps.google.com/maps/api/geocode/json',
+  GeocodeAPIEndpoint: 'http://api.positionstack.com/v1',
   WeatherAPIEndpoint: 'https://api.openweathermap.org/data/2.5/onecall',
-  GeocodeAPIKey: 'AIzaSyCYtCAVso06Kg23Zf6eyHvTKb7MN6jXsd0',
+  GeocodeAPIKey: '615860eac11857c1868fe22792cb6c3c',
   WeatherApiKey: 'eb8a795d9750c67ed7fbcc96d3ecd05a',
 };
