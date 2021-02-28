@@ -8,6 +8,6 @@ import config from './config.json';
 export const environment = {
   ...config,
   production: false,
-  GeocodeAPIEndpoint: 'http://api.positionstack.com/v1',
+  GeocodeAPIEndpoint: 'http://api.openweathermap.org/geo/1.0/direct',
   WeatherAPIEndpoint: 'https://api.openweathermap.org/data/2.5/onecall'
 };

@@ -27,13 +27,14 @@ export class LocationService {
   public getPreciseLocation(state: State, city: String): Observable<GeoLocation> {
     const params = new HttpParams({
       fromObject: {
-        'query': `${city}, ${state.getAbbr()}`,
-        'access_key': API_KEY
+        q: `${city},${state.getAbbr()},BR`,
+        appid: API_KEY,
+        limit: '1'
       }
     });
 
     return this.http
-            .get(`${BASE_URL}/forward`, { params })
+            .get(`${BASE_URL}`, { params })
             .pipe(
               map( (resp: Response) => this.transformData(resp) )
             );
@@ -45,8 +46,8 @@ export class LocationService {
    * @param data
    */
   private transformData(data): GeoLocation {
-    const geomLocation = data.data[0];
-    const output = new GeoLocation(geomLocation.latitude, geomLocation.longitude);
+    const geomLocation = data[0];
+    const output = new GeoLocation(geomLocation.lat, geomLocation.lon);
 
     return output;
   }
