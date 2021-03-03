@@ -21,6 +21,7 @@ import { LocalstorageService } from './services/localstorage.service';
 import { FavoritesService } from './services/favorites.service';
 import { WeatherService } from './services/weather.service';
 import { LoaderService } from 'app/services/loader.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { LoaderService } from 'app/services/loader.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     WeatherService,
