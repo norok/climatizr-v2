@@ -41,7 +41,7 @@ export class ForecastInfoComponent implements OnInit, OnDestroy {
   }
 
   private updateData(data):void {
-    let array:Array<any> = data.daily.data;
+    let array:Array<any> = data.daily;
     array.shift(); // Removes the current day since we don't need it
     this.forecast = array;
 
@@ -80,7 +80,6 @@ export class ForecastInfoComponent implements OnInit, OnDestroy {
   }
 
   private setLoader(status):void {
-    console.log(status);
     this.loaderStatus = status;
   }
 

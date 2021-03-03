@@ -2,17 +2,14 @@ import { LoaderService } from '../../../services/loader.service';
 import { FavoritesService } from '../../../services/favorites.service';
 import { NavService } from '../../../services/nav.service';
 import { WeatherService } from '../../../services/weather.service';
-import { CurrentWeatherComponent } from '../../structural/current-weather/current-weather.component';
-import { EventEmitter } from 'events';
-import { GeoLocation } from '../../../classes/geo-location';
-import { NgForm } from '@angular/forms/src/directives';
+import { NgForm } from '@angular/forms';
 import { Component, OnInit, OnDestroy, Input, Output } from '@angular/core';
 
 import { City } from '../../../classes/city';
 import { State } from '../../../classes/state';
 import { CitiesStatesService } from '../../../services/cities-states.service';
 import { LocationService } from '../../../services/location.service';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 
 declare var $: any;
 
@@ -96,8 +93,6 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
 
         this.currentState = this.getStateByAbbr(favState);
 
-        this.updateAutocomplete();
-
         this.updateLocation();
         this.ready = true;
       });
@@ -105,38 +100,6 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
 
   public stateChange(state: State): void {
     this.currentState = state;
-
-    this.updateAutocomplete();
-  }
-
-  private updateAutocomplete(): void {
-    const that = this;
-    const citiesList = this.currentState.getCities();
-
-    $('#form-city').autocomplete({
-      source: function(request, response) {
-        const matcher = new RegExp( '^' + $.ui.autocomplete.escapeRegex( request.term ), 'i' );
-        response(
-          citiesList.filter((value: any) => {
-            return matcher.test( value.getName() );
-          })
-        );
-      },
-      minLenght: 0,
-      focus: function(event, ui) {
-        that.currentCity = ui.item.getName();
-        return false;
-      },
-      select: function(event, ui) {
-        that.currentCity = ui.item.getName();
-        return false;
-      },
-    })
-    .autocomplete('instance')._renderItem = function(ul, item: City) {
-      return $('<li>')
-        .append(item.getName())
-        .appendTo(ul);
-    };
   }
 
   public onSubmit(f: NgForm, event: Event): void {
@@ -191,7 +154,6 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
   }
 
   private setLoader(status): void {
-    console.log(status);
     this.loaderStatus = status;
   }
 

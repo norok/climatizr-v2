@@ -1,21 +1,22 @@
-import { Observable } from 'rxjs/Rx';
+import { environment } from './../../environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Http, URLSearchParams, RequestOptions, Response } from '@angular/http';
 
 import { GeoLocation } from '../classes/geo-location';
-import { City } from '../classes/city';
 import { State } from '../classes/state';
 
-import 'rxjs/add/operator/map';
-
-const BASE_URL = '//maps.google.com/maps/api/geocode/json';
+const BASE_URL = environment.GeocodeAPIEndpoint;
+const API_KEY = environment.GeocodeAPIKey;
 
 @Injectable()
 export class LocationService {
 
   private currentLocation: GeoLocation = null;
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   /**
    * Returns a GeoLocation object with the latitude and longitude of the given location
@@ -24,16 +25,19 @@ export class LocationService {
    * @param city String
    */
   public getPreciseLocation(state: State, city: String): Observable<GeoLocation> {
-    const params = new URLSearchParams();
-    const options = new RequestOptions();
-
-    params.set('address', state.getAbbr() + ',' + city);
-    params.set('sensor', 'false');
-    options.search = params;
+    const params = new HttpParams({
+      fromObject: {
+        q: `${city},${state.getAbbr()},BR`,
+        appid: API_KEY,
+        limit: '1'
+      }
+    });
 
     return this.http
-            .get(BASE_URL, options)
-            .map((resp: Response) => this.transformData(resp.json()));
+            .get(`${BASE_URL}`, { params })
+            .pipe(
+              map( (resp: Response) => this.transformData(resp) )
+            );
   }
 
   /**
@@ -42,8 +46,8 @@ export class LocationService {
    * @param data
    */
   private transformData(data): GeoLocation {
-    const geomLocation = data.results[0].geometry.location;
-    const output = new GeoLocation(geomLocation.lat, geomLocation.lng);
+    const geomLocation = data[0];
+    const output = new GeoLocation(geomLocation.lat, geomLocation.lon);
 
     return output;
   }

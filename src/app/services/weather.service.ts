@@ -1,13 +1,13 @@
-import { LoaderService } from './loader.service';
-import { Observable, Subject } from 'rxjs/Rx';
+import { environment } from './../../environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+import {map} from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 import { GeoLocation } from '../classes/geo-location';
-import { Http, URLSearchParams, RequestOptions, Response, Jsonp } from '@angular/http';
 import { Injectable } from '@angular/core';
 
-import 'rxjs/add/operator/map';
-
-const BASE_URL = 'https://api.darksky.net/forecast/';
-const KEY = 'd2deeb708d6b5a2f85682a02f40a8d9d';
+const BASE_URL = environment.WeatherAPIEndpoint;
+const KEY = environment.WeatherApiKey;
 
 @Injectable()
 export class WeatherService {
@@ -15,7 +15,7 @@ export class WeatherService {
   private weatherData:Subject<any> = new Subject<any>();
 
   constructor(
-    private jsonp:Jsonp,
+    private http: HttpClient
   ) {}
 
   public weatherInformation$ = this.weatherData.asObservable();
@@ -28,19 +28,17 @@ export class WeatherService {
   }
 
   private getInfo(location:GeoLocation):Observable<any> {
-    let params = new URLSearchParams();
-    let options = new RequestOptions();
+    let params = new HttpParams({
+      fromObject: {
+        units: 'metric',
+        lang: 'pt',
+        lat: location.getLatitude(),
+        lon: location.getLongitude(),
+        appid: KEY
+      }
+    });
 
-    params.set('units',    'si');
-    params.set('lang',     'pt');
-    params.set('callback', 'JSONP_CALLBACK');
-    options.search = params;
-
-    let url = BASE_URL + KEY + '/' + location.getLatitude() + ',' + location.getLongitude();
-
-    return this.jsonp
-               .get(url, options)
-               .map( resp => resp.json() );
+    return this.http.get(BASE_URL, { params })
   }
 
 }

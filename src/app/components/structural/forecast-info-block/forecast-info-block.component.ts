@@ -1,3 +1,4 @@
+import { IconsService } from './../../../services/icons.service';
 import { WeatherBlock } from '../../../classes/weather-block';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -12,7 +13,9 @@ export class ForecastInfoBlockComponent extends WeatherBlock implements OnInit {
 
   public todo:string = '';
 
-  constructor() {
+  constructor(
+    private icons: IconsService
+  ) {
     super();
   }
 
@@ -21,8 +24,10 @@ export class ForecastInfoBlockComponent extends WeatherBlock implements OnInit {
 
     // Used this "hack" to set the icon only after the dom is fully rendered
     setTimeout(() => {
-      this.setIcon(`icon-day-` + this.index.toString(), this.day.icon);
-      this.whatToDo(this.index, this.day.icon, this.day.time * 1000);
+      const icon = this.icons.getIcon(this.day.weather[0].icon);
+
+      this.setIcon(`icon-day-` + this.index.toString(), icon);
+      this.whatToDo(this.index, icon, this.day.dt * 1000);
     });
   }
 

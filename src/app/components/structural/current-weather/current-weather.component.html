@@ -1,22 +1,22 @@
 <section class="current-weather base-transition" [ngClass]="{'loading': loaderStatus}">
   <h2 class="sr-only">Tempo Atual</h2>
-  <div class="date">
+  <!-- <div class="date">
     {{ currentWeather.time * 1000 | date:'EEE, dd/MM'  }}
-  </div>
+  </div> -->
   <canvas id="icon-current" width="150" height="150"></canvas>
   <div class="data">
     <div class="temp">
-      {{ currentWeather.temperature | number:'1.0-0' }}°C
+      {{ currentWeather.temp | number:'1.0-0' }}°C
       <div class="min-max">
-        <div class="max"><i class="fa fa-caret-up"></i> {{ todayForecast.temperatureMax | number:'1.0-0' }}°C</div>
-        <div class="min"><i class="fa fa-caret-down"></i> {{ todayForecast.temperatureMin | number:'1.0-0' }}°C</div>
+        <div class="max"><i class="fa fa-caret-up"></i> {{ todayForecast.temp?.max | number:'1.0-0' }}°C</div>
+        <div class="min"><i class="fa fa-caret-down"></i> {{ todayForecast.temp?.min | number:'1.0-0' }}°C</div>
       </div>
     </div>
     <div class="summary">
-      <strong>Sensação Térmica:</strong> {{ currentWeather.apparentTemperature | number:'1.0-0' }}°C<strong> - {{ currentWeather.summary }}</strong>
+      <strong>Sensação Térmica:</strong> {{ currentWeather.feels_like | number:'1.0-0' }}°C
     </div>
-    <div class="rain">
-      <strong>Chuva:</strong> {{ 100 * currentWeather.precipProbability | number:'1.0-0' }}% - {{ currentWeather.precipIntensity }}mm/h
+    <div class="rain" *ngIf="currentWeather.rain">
+      <strong>Chuva:</strong> {{ 100 * currentWeather.rain['1h'] | number:'1.0-0' }}% - {{ currentWeather.precipIntensity }}mm/h
     </div>
   </div>
 </section>
