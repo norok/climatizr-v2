@@ -3,8 +3,8 @@ import { WeatherService } from '../../../services/weather.service';
 import { LoaderService } from "app/services/loader.service";
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from "rxjs";
+import Chart from "chart.js";
 
-declare var Chart:any;
 
 @Component({
   selector: 'cl2-forecast-graph',

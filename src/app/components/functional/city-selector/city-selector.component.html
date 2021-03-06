@@ -1,22 +1,39 @@
-<section class="card text-center cl2-card base-transition" id="city-selector" [ngClass]="{'loading': loaderStatus}">
+<section class="card base-transition" id="city-selector" [ngClass]="{'loading': loaderStatus}">
   <div class="card-body">
-    <form class="form-inline" #f="ngForm" (ngSubmit)="onSubmit(f, $event)">
-      <div class="form-group text-left">
-        <label class="sr-only" for="form-state">Estado</label>
-        <select class="form-control" name="form-state" id="form-state" [(ngModel)]="currentState" required (ngModelChange)="stateChange($event)" [disabled]="!ready">
-          <option *ngFor="let state of states" [ngValue]="state">
-            {{ state.abbr }}
-          </option>
-        </select>
-      </div>
-      <div class="form-group text-left">
-        <label class="sr-only" for="form-city">Cidade</label>
-        <input class="form-control" type="text" id="form-city" name="form-city" placeholder="Digite o nome da cidade" [(ngModel)]="currentCity" required [disabled]="!ready"/>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary" title="Ver clima da cidade atual" [disabled]="!ready">Ver Clima</button>
-        <button type="button" class="favorite-button" title="{{ currentCityIsFavorite() ? 'Esta é sua cidade favorita' : 'Favoritar cidade' }}" [disabled]="!ready" (click)="saveFavorite()"><i class="fa" [ngClass]="{'fa-star': currentCityIsFavorite(), 'fa-star-o': !currentCityIsFavorite()}"></i></button>
-      </div>
+    <form class="form-inline" autocomplete="off" [formGroup]="citySelectorFormGroup" (ngSubmit)="onSubmit()">
+      <mat-form-field class="federative-unit" appearance="fill">
+        <mat-label>Estado</mat-label>
+        <input type="text"
+          matInput
+          formControlName="federativeUnit"
+          [matAutocomplete]="federativeUnitAutocomplete">
+        <mat-autocomplete #federativeUnitAutocomplete="matAutocomplete" [displayWith]="displayFederativeUnitAbbr">
+          <mat-option *ngFor="let state of states" [value]="state">
+            {{ state.abbr  }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field class="city" appearance="fill">
+        <mat-label>Cidade</mat-label>
+        <input type="text"
+          matInput
+          formControlName="city">
+      </mat-form-field>
+
+      <button mat-icon-button
+        type="button"
+        class="favorite-button"
+        [title]="currentCityIsFavorite() ? 'Esta é sua cidade favorita' : 'Favoritar cidade'"
+        [disabled]="!ready"
+        (click)="saveFavorite()">
+        <mat-icon>{{ currentCityIsFavorite() ? 'star' : 'star_border' }}</mat-icon>
+      </button>
+      <button mat-raised-button
+        class="submit-button"
+        color="secondary"
+        type="submit"
+        [disabled]="!ready">Ver Clima</button>
     </form>
   </div>
 </section>

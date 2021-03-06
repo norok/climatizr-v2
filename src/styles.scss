@@ -1,14 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'shared/reset';
 @import 'shared/variables';
-@import '../node_modules/bootstrap/scss/bootstrap';
 
 html {
   font-size: $root-font-size;
   height: 100%;
   position: relative;
+  color: #FFF;
 }
 
 body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
   min-height: 100%;
   overflow-x: hidden;
   position: relative;
@@ -19,10 +22,15 @@ app-root {
   display: block;
 }
 
-.card.cl2-card {
+.card {
 	background-color: rgba(#FFF, 0.1);
 	border: none;
   margin-bottom: 20px;
+  padding: 20px 30px;
+  text-align: center;
+  border-radius: 10px;
+  max-width: 90%;
+  margin: auto;
 
   .card-title {
     color: #FFF;
@@ -42,5 +50,3 @@ app-root {
   transition: all 400ms ease-out 0s;
   background-position: center;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

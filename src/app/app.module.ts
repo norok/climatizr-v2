@@ -1,7 +1,7 @@
 import { IconsService } from './services/icons.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -22,6 +22,7 @@ import { FavoritesService } from './services/favorites.service';
 import { WeatherService } from './services/weather.service';
 import { LoaderService } from 'app/services/loader.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppMaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppMaterialModule,
+    ReactiveFormsModule
   ],
   providers: [
     WeatherService,

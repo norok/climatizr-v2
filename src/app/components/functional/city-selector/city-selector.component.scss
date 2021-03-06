@@ -1,42 +1,29 @@
 @import '../../../../shared/shared';
 
+.card {
+  padding-bottom: 0;
+}
+
 form {
+  align-items: baseline;
+  display: flex;
   justify-content: center;
   min-width: 250px;
 
-  .form-group,
-  .favorite-button {
-    vertical-align: top;
-  }
-  .form-group {
+  > .mat-form-field {
     flex-grow: 1;
 
-    @include media-breakpoint-down(xs) {
+    @include xs {
       width: 100%;
     }
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  .favorite-button {
-    background: transparent none;
-    border: none;
-    color: theme-color('warning');
-    cursor: pointer;
-    font-size: 28px;
-    height: 34px;
-    line-height: 1;
-    outline: none;
   }
 }
 
-.card {
-  .card-title {
-    font-size: $h4-font-size;
-    padding-top: 0;
-    padding-bottom: 10px;
-    @include media-breakpoint-down(xs) {
-      font-size: 1.4rem;
-    }
-  }
+.federative-unit {
+  max-width: 4rem;
+}
+
+.favorite-button {
+  cursor: pointer;
+  margin: 0 0.5rem;
 }
