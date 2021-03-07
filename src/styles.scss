@@ -1,4 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.core";
+@import "node_modules/@glidejs/glide/src/assets/sass/glide.theme";
 @import 'shared/reset';
 @import 'shared/variables';
 
@@ -34,9 +35,9 @@ app-root {
 
   .card-title {
     color: #FFF;
-    font-size: 14px;
+    font-family: $headings-font-family;
+    font-size: 18px;
     line-height: 20px;
-    padding-top: 10px;
   }
 }
 
