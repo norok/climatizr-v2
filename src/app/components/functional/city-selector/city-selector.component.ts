@@ -70,7 +70,7 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
         debounceTime(500)
       )
       .subscribe( changes => {
-        console.log(changes);
+        // @TODO: reimplement city autocomplete
       });
 
     this.getStates();

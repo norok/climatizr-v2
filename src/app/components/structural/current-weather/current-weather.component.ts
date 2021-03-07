@@ -30,6 +30,7 @@ export class CurrentWeatherComponent extends WeatherBlock implements OnInit {
       .subscribe(data => {
         this.updateData(data)
       });
+
     this.loaderService.loaderItem$
       .subscribe(data => {
         this.setLoader(data)
