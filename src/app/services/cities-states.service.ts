@@ -1,3 +1,5 @@
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { State } from '../classes/state';
@@ -15,13 +17,13 @@ export class CitiesStatesService {
   /**
    * Returns a promise for the Cities and States transformed data
    */
-  public getLocations():Promise<State[]> {
+  public getLocations():Observable<State[]> {
     let that = this;
 
     return this.http.get(this.statesUrl)
-               .toPromise()
-               .then(response => that.transformData(response))
-               .catch(this.handleError);
+      .pipe(
+        map( response => that.transformData(response)),
+      );
   }
 
   /**

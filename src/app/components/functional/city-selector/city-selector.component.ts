@@ -2,16 +2,15 @@ import { LoaderService } from '../../../services/loader.service';
 import { FavoritesService } from '../../../services/favorites.service';
 import { NavService } from '../../../services/nav.service';
 import { WeatherService } from '../../../services/weather.service';
-import { NgForm } from '@angular/forms';
-import { Component, OnInit, OnDestroy, Input, Output } from '@angular/core';
+import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { City } from '../../../classes/city';
 import { State } from '../../../classes/state';
 import { CitiesStatesService } from '../../../services/cities-states.service';
 import { LocationService } from '../../../services/location.service';
 import { Subscription } from 'rxjs';
-
-declare var $: any;
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'cl2-city-selector',
@@ -21,8 +20,11 @@ declare var $: any;
 })
 export class CitySelectorComponent implements OnInit, OnDestroy {
 
-  public currentState: State;
-  public currentCity = '';
+  citySelectorFormGroup = new FormGroup({
+    federativeUnit: new FormControl(''),
+    city: new FormControl(''),
+  });
+
   public ready: Boolean = false;
   public states: State[];
   public loaderStatus: Boolean = true;
@@ -55,14 +57,28 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
 
     this.navSubscription = this.navService.navItem$
       .subscribe(nav => {
-        this.stateChange(this.getStateByAbbr(nav.state));
-        this.currentCity = nav.city;
+        const city = nav.city;
+        const federativeUnit = this.getStateByAbbr(nav.state);
+
+        this.citySelectorFormGroup.setValue({
+          city,
+          federativeUnit,
+        });
+
         this.updateLocation();
       });
 
     this.loaderSubscription = this.loaderService.loaderItem$
       .subscribe(data => {
         this.setLoader(data)
+      });
+
+    this.citySelectorFormGroup.valueChanges
+      .pipe(
+        debounceTime(500)
+      )
+      .subscribe( changes => {
+        // @TODO: reimplement city autocomplete
       });
 
     this.getStates();
@@ -74,68 +90,60 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
   }
 
   private getStates(): void {
-    this.citiesStatesService
-      .getLocations()
-      .then(states => {
-        this.states = states;
+    this.citiesStatesService.getLocations()
+      .subscribe( fu => {
+        this.states = fu;
         this.getFavorites();
 
         const fave = !!this.favorites ? this.favorites[0] : false;
-        let favState;
+        const favState = fave ? fave.state : this.defaults.state;
 
-        if (fave) {
-          this.currentCity  = fave.city;
-          favState = fave.state;
-        } else {
-          this.currentCity = this.defaults.city;
-          favState = this.defaults.state;
-        }
-
-        this.currentState = this.getStateByAbbr(favState);
+        this.citySelectorFormGroup.setValue({
+          city: fave ? fave.city : this.defaults.city,
+          federativeUnit: this.getStateByAbbr(favState)
+        });
 
         this.updateLocation();
         this.ready = true;
       });
   }
 
-  public stateChange(state: State): void {
-    this.currentState = state;
-  }
-
-  public onSubmit(f: NgForm, event: Event): void {
-    event.preventDefault();
-
-    if (f.valid) {
+  public onSubmit(): void {
+    if (this.citySelectorFormGroup.valid) {
       this.updateLocation();
     }
   }
 
+  public displayFederativeUnitAbbr(state: State) {
+    return state && state.getAbbr() ? state.getAbbr() : '';
+  }
+
   private updateLocation(): void {
     this.loaderService.startLoader();
-    const city = this.currentCity;
-    const state = this.currentState;
+    const city = this.citySelectorFormGroup.get('city').value;
+    const state = this.citySelectorFormGroup.get('federativeUnit').value;
 
     this.getFavorites();
 
     this.locationService
-        .getPreciseLocation(state, city)
-        .subscribe(location => {
-          this.weatherService.getWeatherInformation(location);
-        });
+      .getPreciseLocation(state, city)
+      .subscribe(location => {
+        this.weatherService.getWeatherInformation(location);
+      });
   }
 
   private getStateByAbbr(abbr): State {
-    const matcher = new RegExp( '^' + $.ui.autocomplete.escapeRegex( abbr ), 'i' );
-    return this.states.filter((value: any) => {
-      return matcher.test( value.getAbbr() );
-    })[0];
+    return this.states.find((value: any) => value.getAbbr() === abbr );
   }
 
   public saveFavorite(): void {
+    const city = this.citySelectorFormGroup.get('city').value;
+    const state = this.citySelectorFormGroup.get('federativeUnit').value;
+
     if (this.currentCityIsFavorite()) {
-      this.favoritesService.removeCity(this.currentCity, this.currentState.getAbbr());
+      this.favoritesService.removeCity(city, state.getAbbr());
     } else {
-      this.favoritesService.addCity(this.currentCity, this.currentState.getAbbr());
+      this.favoritesService.addCity(city, state.getAbbr());
     }
   }
 
@@ -144,13 +152,10 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
   }
 
   public currentCityIsFavorite(): boolean {
-    for (const favorite of this.favorites) {
-      if (favorite.city === this.currentCity && favorite.state === this.currentState.getAbbr()) {
-        return true;
-      }
-    }
+    const city = this.citySelectorFormGroup.get('city').value;
+    const state = this.citySelectorFormGroup.get('federativeUnit').value;
 
-    return false;
+    return !!this.favorites.find( favorite => city && state && favorite.city === city && favorite.state === state.getAbbr());
   }
 
   private setLoader(status): void {

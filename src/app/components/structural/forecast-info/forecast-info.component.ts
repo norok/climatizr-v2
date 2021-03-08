@@ -1,23 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { LoaderService } from '../../../services/loader.service';
 import { WeatherService } from '../../../services/weather.service';
 import { Subscription } from "rxjs";
-
-declare var $:any;
+import Glide from "@glidejs/glide";
 
 @Component({
   selector: 'cl2-forecast-info',
   templateUrl: './forecast-info.component.html',
   styleUrls: ['./forecast-info.component.scss']
 })
-export class ForecastInfoComponent implements OnInit, OnDestroy {
+export class ForecastInfoComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  private forecastCarousel:any;
+  private forecastCarousel:Glide;
   private weatherSubscription:Subscription;
   private loaderSubscription:Subscription;
 
   public forecast:Array<any> = [];
   public loaderStatus:Boolean = true;
+
+  @ViewChildren('weekdays') weekdays: QueryList<any>;
 
   constructor(
     private weatherService:WeatherService,
@@ -35,48 +36,45 @@ export class ForecastInfoComponent implements OnInit, OnDestroy {
       });
   }
 
+  ngAfterViewInit() {
+    const options = {
+      type: 'slider',
+      startAt: 0,
+      perView: 7,
+      autoplay: false,
+      bound: true,
+      rewind: false,
+      breakpoints: {
+        0: {
+          perView: 2,
+        },
+        600: {
+          perView: 2,
+        },
+        995: {
+          perView: 4,
+        },
+        1200: {
+          perView: 6,
+        }
+      }
+    };
+
+    this.weekdays.changes.subscribe( t => {
+      this.forecastCarousel = new Glide('#forecast-carousel', options).mount();
+    });
+  }
+
   ngOnDestroy():void {
     this.weatherSubscription.unsubscribe();
     this.loaderSubscription.unsubscribe();
+    this.forecastCarousel.destroy();
   }
 
   private updateData(data):void {
     let array:Array<any> = data.daily;
     array.shift(); // Removes the current day since we don't need it
     this.forecast = array;
-
-    setTimeout(() => {
-      $('[data-toggle="popover"]').popover();
-    })
-
-    this.updateView();
-  }
-
-  private updateView():void {
-    if (!!this.forecastCarousel) {
-      // Destroy the owl carousel to build a new one with new data
-      this.forecastCarousel.trigger('destroy.owl.carousel').removeClass('owl-drag owl-loaded');
-      this.forecastCarousel.find('.owl-stage-outer').children().unwrap();
-    }
-
-    setTimeout(() => {
-      this.forecastCarousel = $('#forecast-carousel').owlCarousel({
-        responsive: {
-          0: {
-            items: 2,
-          },
-          600: {
-            items: 4,
-          },
-          995: {
-            items: 6,
-          },
-          1200: {
-            items: 7,
-          }
-        }
-      });
-    });
   }
 
   private setLoader(status):void {

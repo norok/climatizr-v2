@@ -1,9 +1,8 @@
 import { IconsService } from './../../../services/icons.service';
 import { LoaderService } from '../../../services/loader.service';
 import { WeatherBlock } from '../../../classes/weather-block';
-import { Subscription } from 'rxjs';
 import { WeatherService } from '../../../services/weather.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'cl2-current-weather',
@@ -30,6 +29,7 @@ export class CurrentWeatherComponent extends WeatherBlock implements OnInit {
       .subscribe(data => {
         this.updateData(data)
       });
+
     this.loaderService.loaderItem$
       .subscribe(data => {
         this.setLoader(data)

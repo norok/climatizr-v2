@@ -1,10 +1,16 @@
 <section class="forecast card cl2-card text-center base-transition" [ngClass]="{'loading': loaderStatus}">
   <div class="card-body">
     <h4 class="card-title">Previsão para os próximos dias</h4>
-    <ul class="list-unstyled owl-carousel" id="forecast-carousel">
-      <li *ngFor="let day of forecast index as index" class="weekday">
-        <cl2-forecast-info-block [day]="day" [index]="index"></cl2-forecast-info-block>
-      </li>
-    </ul>
+    <div class="glide" id="forecast-carousel">
+      <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+          <li #weekdays
+            *ngFor="let day of forecast index as index"
+            class="weekday glide__slide">
+            <cl2-forecast-info-block [day]="day" [index]="index"></cl2-forecast-info-block>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>

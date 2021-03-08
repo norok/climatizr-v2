@@ -1,42 +1,56 @@
 @import '../../../../shared/shared';
 
+.card {
+  padding-bottom: 0;
+}
+
 form {
+  align-items: baseline;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   min-width: 250px;
 
-  .form-group,
-  .favorite-button {
-    vertical-align: top;
+  @include sm-min {
+    flex-direction: row;
   }
-  .form-group {
-    flex-grow: 1;
 
-    @include media-breakpoint-down(xs) {
-      width: 100%;
-    }
-    &:last-child {
-      margin-bottom: 0;
+  .fields,
+  .actions {
+    display: flex;
+    width: 100%;
+
+    @include sm-min {
+      width: auto;
     }
   }
-  .favorite-button {
-    background: transparent none;
-    border: none;
-    color: theme-color('warning');
-    cursor: pointer;
-    font-size: 28px;
-    height: 34px;
-    line-height: 1;
-    outline: none;
+
+  .actions {
+    justify-content: center;
+    padding-bottom: 1rem;
+
+    @include sm-min {
+      padding-bottom: 0;
+    }
+  }
+
+  .mat-form-field {
+    flex-grow: 1;
+    + .mat-form-field {
+      margin-left: 1rem;
+    }
   }
 }
 
-.card {
-  .card-title {
-    font-size: $h4-font-size;
-    padding-top: 0;
-    padding-bottom: 10px;
-    @include media-breakpoint-down(xs) {
-      font-size: 1.4rem;
-    }
-  }
+.federative-unit {
+  max-width: 4rem;
+}
+
+.city {
+  min-width: 0;
+}
+
+.favorite-button {
+  cursor: pointer;
+  margin: 0 0.5rem;
 }

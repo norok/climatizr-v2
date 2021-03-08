@@ -4,60 +4,31 @@
   background-color: rgba(#000, 0.3);
   border-radius: 0;
   border: none;
-  z-index: 100;
   margin-bottom: 20px;
+  z-index: 100;
+  position: relative;
 
   > .container {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1rem;
     position: relative;
-    @include media-breakpoint-down(xs) {
-      width: 100%;
+    width: 100%;
+
+    @include md-min {
+      margin: auto;
+      max-width: 90%;
     }
   }
 
-  .navbar-brand {
+  .navbar-title {
     color: #FFF;
     font-family: $headings-font-family;
+    margin: 0;
+    padding: 0;
     cursor: default;
     &:hover {
       color: #FFF;
     }
-  }
-
-  button.navbar-toggler {
-    border-radius: 0;
-    border: none;
-    color: #FFF;
-    font-size: 30px;
-    line-height: 40px;
-    margin: 0;
-    outline: none;
-    padding: 0 15px;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    &:hover,
-    &:focus {
-      background-color: rgba(#000, 0.5);
-      color: #FFF;
-    }
-  }
-
-  .navbar-nav {
-    text-align: right;
-    > li {
-      > span {
-        color: rgba(#FFF, 0.9);
-        cursor: pointer;
-        &:hover,
-        &:focus {
-          color: #FFF;
-        }
-      }
-    }
-  }
-
-  #navbar-collapse {
-    flex-direction: row-reverse;
   }
 }
