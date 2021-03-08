@@ -1,31 +1,42 @@
-.navbar-toggler {
+@import '../../../../shared/variables';
+
+.toggler {
   color: #FFF;
   cursor: pointer;
-  height: 38px;
-  line-height: 38px;
   outline: none;
-  padding: 0 15px;
   position: absolute;
-  right: 15px;
-  top: 0;
+  right: 1rem;
+  top: 1rem;
+  z-index: 10000;
 }
 
-.navbar-collapse {
+.menu {
+  background-color: rgba(#000, 0.3);
+  padding: 0 1rem;
+  position: absolute;
+  right: 0;
   text-align: right;
-  color: #FFF;
-  padding: 10px 0;
-  font-size: 0.9em;
+  top: 100%;
+  transition: all 500ms $cubic-easing 0s;
 
-  .nav-link {
-    cursor: pointer;
-    display: inline-block;
+  h5 {
+    margin: 0;
   }
 }
 
-.favs-nav {
-  overflow: auto;
-  max-height: 130px;
-  li {
-    padding-right: 10px;
-  }
+.closed {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.nav {
+  line-height: 2rem;
+}
+
+.remove {
+  font-size: 1em;
+}
+
+.link, .remove {
+  cursor: pointer;
 }

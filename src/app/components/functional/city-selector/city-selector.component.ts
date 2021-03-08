@@ -57,6 +57,14 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
 
     this.navSubscription = this.navService.navItem$
       .subscribe(nav => {
+        const city = nav.city;
+        const federativeUnit = this.getStateByAbbr(nav.state);
+
+        this.citySelectorFormGroup.setValue({
+          city,
+          federativeUnit,
+        });
+
         this.updateLocation();
       });
 

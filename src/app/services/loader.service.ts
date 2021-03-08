@@ -1,11 +1,9 @@
 import { WeatherService } from './weather.service';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Subscription, Subject } from "rxjs";
 
 @Injectable()
-export class LoaderService implements OnInit {
-
-  private weatherSubscription:Subscription;
+export class LoaderService {
   private _loaderItemSource = new Subject<Boolean>();
   private loaderStatus = true;
 
@@ -14,14 +12,13 @@ export class LoaderService implements OnInit {
   constructor(
     private weatherService:WeatherService
   ) {
-    this.weatherSubscription = this.weatherService.weatherInformation$
+    this.weatherService.weatherInformation$
       .subscribe(data => this.endLoader());
   }
 
-  ngOnInit() {}
-
   private trigger():void {
-    this._loaderItemSource.next(this.getStatus());
+    this._loaderItemSource
+      .next(this.getStatus());
   }
 
   private endLoader():void {

@@ -11,7 +11,8 @@ import { Subscription } from "rxjs";
 })
 export class MenuComponent implements OnInit, OnDestroy {
 
-  public favorites:Array<any> = [];
+  favorites:Array<any> = [];
+  menuOpen = false;
   private subscription:Subscription;
 
   constructor(
@@ -35,13 +36,17 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.favorites = this.favoriteService.getFavorites();
   }
 
-  private setCity(city, state):void {
+  setCity(city, state):void {
     this.navService.changeCity(city, state);
   }
 
-  private removeCity(index):void {
-    let fave = this.favorites[index];
+  removeCity(index):void {
+    const fave = this.favorites[index];
     this.favoriteService.removeCity(fave.city, fave.state);
+  }
+
+  toggleMenuOpen() {
+    this.menuOpen = !this.menuOpen;
   }
 
 }
