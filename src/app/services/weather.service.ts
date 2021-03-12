@@ -1,7 +1,6 @@
 import { environment } from './../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import {map} from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { GeoLocation } from '../classes/geo-location';
 import { Injectable } from '@angular/core';

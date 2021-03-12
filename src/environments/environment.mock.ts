@@ -3,12 +3,15 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
-import config from './config.json';
+const config = {
+  "GeocodeAPIKey": "abc123",
+  "WeatherApiKey": "abc123"
+}
 
 export const environment = {
   ...config,
   production: false,
-  envName: 'dev',
-  GeocodeAPIEndpoint: 'http://api.openweathermap.org/geo/1.0/direct',
-  WeatherAPIEndpoint: 'https://api.openweathermap.org/data/2.5/onecall'
+  envName: 'mock',
+  GeocodeAPIEndpoint: 'http://mock.com/geo',
+  WeatherAPIEndpoint: 'http://mock.com/weather'
 };

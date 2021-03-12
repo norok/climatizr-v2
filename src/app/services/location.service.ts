@@ -14,6 +14,7 @@ const API_KEY = environment.GeocodeAPIKey;
 @Injectable()
 export class LocationService {
 
+  //@TODO
   private currentLocation: GeoLocation = null;
 
   constructor(private http: HttpClient) { }
@@ -34,10 +35,10 @@ export class LocationService {
     });
 
     return this.http
-            .get(`${BASE_URL}`, { params })
-            .pipe(
-              map( (resp: Response) => this.transformData(resp) )
-            );
+      .get(`${BASE_URL}`, { params })
+      .pipe(
+        map( (resp: Response) => this.transformData(resp) )
+      );
   }
 
   /**
