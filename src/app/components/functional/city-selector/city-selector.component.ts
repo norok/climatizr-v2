@@ -92,8 +92,6 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
   private getStates(): void {
     this.citiesStatesService.getLocations()
       .subscribe( fu => {
-        console.log(fu);
-
         this.states = fu;
         this.getFavorites();
 
