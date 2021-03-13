@@ -21,5 +21,8 @@
       "dom"
     ],
     "module": "es2020"
+  },
+  "angularCompilerOptions": {
+    "strictTemplates": true
   }
 }
