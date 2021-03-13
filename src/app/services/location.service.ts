@@ -52,15 +52,4 @@ export class LocationService {
 
     return output;
   }
-
-  /**
-   * Handles the promise errors
-   *
-   * @param error
-   */
-  private handleError(error: any): Promise<any> {
-    console.error('Ocorreu um erro ao carregar os estados', error);
-    return Promise.reject(error.message || error);
-  }
-
 }

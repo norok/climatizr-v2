@@ -16,19 +16,13 @@ export class FavoritesService {
 
   public addCity(city:string, state:string):void {
     if (this.favorites == null) this.favorites = [];
-    let alreadyExists = false;
 
-    for (let favorite of this.favorites) {
-      // Adding favorite if necessary
-      if (favorite.state == state && favorite.city == city) {
-        alreadyExists = true;
-      }
-    }
+    const alreadyExists = !!this.favorites.find( fav => fav.state === state && fav.city === city);
 
     if (!alreadyExists) {
-      let cityState = {
-        'state': state,
-        'city': city
+      const cityState = {
+        state,
+        city
       };
 
       this.favorites.push(cityState);
@@ -43,18 +37,20 @@ export class FavoritesService {
   }
 
   public removeCity(city:string, state:string):void {
-    for (let index in this.favorites) {
-      if (this.favorites[index].state == state && this.favorites[index].city == city) {
-        this.favorites.splice(parseInt(index) , 1);
-        break;
-      }
+    const index = this.favorites.findIndex( fav => fav.city === city && fav.state === state);
+
+    if (index >= 0) {
+      this.favorites.splice(index , 1);
+    } else {
+      return;
     }
+
     this.localStorage.setJSONData('favoriteCities', this.favorites);
     this.favoritesChanged();
   }
 
   public getFavorites():any {
-    let storage = this.localStorage.getJSONData('favoriteCities');
+    const storage = this.localStorage.getJSONData('favoriteCities');
     this.favorites = storage != null ? storage : [];
     return this.favorites;
   }

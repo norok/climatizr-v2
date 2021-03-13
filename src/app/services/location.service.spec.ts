@@ -23,7 +23,7 @@ describe('LocationService', () => {
     service = TestBed.inject(LocationService);
   });
 
-  it('should return the geolocation based on provided City and <State>', () => {
+  it('should return the geolocation based on provided City and <State>', done => {
     const testData: any = [
       {
         country: "BR",
@@ -38,6 +38,8 @@ describe('LocationService', () => {
     service.getPreciseLocation(new State('São Paulo', 'SP', [new City('Campinas')]), 'Campinas')
       .subscribe(data => {
         expect(data).toEqual(new GeoLocation(-22.9056, -47.0608));
+
+        done();
       });
 
     const req = httpTestingController.expectOne('http://mock.com/geo?q=Campinas,SP,BR&appid=abc123&limit=1');
