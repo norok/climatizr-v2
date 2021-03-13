@@ -13,8 +13,8 @@ export class NavService {
 
   public changeCity(city, state):void {
     this.currentCity = {
-      'city': city,
-      'state': state
+      city,
+      state
     };
     this._navItemSource.next(this.currentCity);
   }
