@@ -92,6 +92,8 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
   private getStates(): void {
     this.citiesStatesService.getLocations()
       .subscribe( fu => {
+        console.log(fu);
+
         this.states = fu;
         this.getFavorites();
 
@@ -119,7 +121,6 @@ export class CitySelectorComponent implements OnInit, OnDestroy {
   }
 
   private updateLocation(): void {
-    this.loaderService.startLoader();
     const city = this.citySelectorFormGroup.get('city').value;
     const state = this.citySelectorFormGroup.get('federativeUnit').value;
 

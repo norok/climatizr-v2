@@ -1,3 +1,4 @@
+import { LoaderService } from 'app/services/loader.service';
 import { environment } from './../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
@@ -14,15 +15,19 @@ export class WeatherService {
   private weatherData:Subject<any> = new Subject<any>();
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private loaderService: LoaderService
   ) {}
 
   public weatherInformation$ = this.weatherData.asObservable();
 
   public getWeatherInformation(location:GeoLocation):void {
+    this.loaderService.startLoader();
+
     this.getInfo(location)
         .subscribe(data => {
           this.weatherData.next(data);
+          this.loaderService.endLoader();
         });
   }
 

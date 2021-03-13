@@ -10,7 +10,7 @@
             [matAutocomplete]="federativeUnitAutocomplete">
           <mat-autocomplete #federativeUnitAutocomplete="matAutocomplete" [displayWith]="displayFederativeUnitAbbr">
             <mat-option *ngFor="let state of states" [value]="state">
-              {{ state.abbr  }}
+              {{ state?.getAbbr()  }}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>

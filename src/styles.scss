@@ -46,7 +46,9 @@ app-root {
 }
 
 .loading {
-  background: transparent url('assets/pageloader.gif') center no-repeat;
+  background-image: url('/assets/pageloader.gif');
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: auto 40px;
 	opacity: 0.5;
 }

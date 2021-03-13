@@ -8,9 +8,9 @@
   top: 0;
 
   &.night {
-    background-image: url('./img/night.jpg');
+    background-image: url('/assets/night.jpg');
   }
   &.day {
-    background-image: url('./img/day.jpg');
+    background-image: url('/assets/day.jpg');
   }
 }

@@ -1,6 +1,5 @@
-import { WeatherService } from './weather.service';
 import { Injectable } from '@angular/core';
-import { Subscription, Subject } from "rxjs";
+import { Subject } from "rxjs";
 
 @Injectable()
 export class LoaderService {
@@ -9,19 +8,14 @@ export class LoaderService {
 
   public loaderItem$ = this._loaderItemSource.asObservable();
 
-  constructor(
-    private weatherService:WeatherService
-  ) {
-    this.weatherService.weatherInformation$
-      .subscribe(data => this.endLoader());
-  }
+  constructor() {}
 
   private trigger():void {
     this._loaderItemSource
       .next(this.getStatus());
   }
 
-  private endLoader():void {
+  public endLoader():void {
     this.loaderStatus = false;
     this.trigger();
   }
