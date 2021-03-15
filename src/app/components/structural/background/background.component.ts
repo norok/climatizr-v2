@@ -1,33 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'cl2-background',
   templateUrl: './background.component.html',
   styleUrls: ['./background.component.scss']
 })
-export class BackgroundComponent implements OnInit {
+export class BackgroundComponent {
 
-  private now:Date;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {}
-
-  private getDayTimeClass(hour:number):string {
-    if (hour < 18 && hour > 5) {
-      return 'day';
-    }
-    else {
-      return 'night';
-    }
-  }
-  
-  public timeClass():string {
-    this.now = new Date(Date.now());
-    
-    let hour:number = this.now.getHours();
-
-    return this.getDayTimeClass(hour);
+  get timeClass():string {
+    const now = new Date(Date.now());
+    const hour:number = now.getHours();
+    return hour < 18 && hour > 5 ? 'day' : 'night';
   }
 
 }
